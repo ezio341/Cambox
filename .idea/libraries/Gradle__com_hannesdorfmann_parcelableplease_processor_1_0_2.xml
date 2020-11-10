@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Gradle: com.hannesdorfmann.parcelableplease:processor:1.0.2">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hannesdorfmann.parcelableplease/processor/1.0.2/13567ddb76f9a53286e40de61165f4489a707cdf/processor-1.0.2.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hannesdorfmann.parcelableplease/processor/1.0.2/3cdf9dc17ec7bf240771af53c8941caa9606ab8e/processor-1.0.2-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hannesdorfmann.parcelableplease/processor/1.0.2/ca9a7d7a1f5f976318af5c40ff7c27a021b2aa40/processor-1.0.2-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

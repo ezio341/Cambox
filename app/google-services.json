@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "680018435131",
+    "firebase_url": "https://cambox-d0b24.firebaseio.com",
+    "project_id": "cambox-d0b24",
+    "storage_bucket": "cambox-d0b24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:680018435131:android:5934dbd1cf6bfd0974101e",
+        "android_client_info": {
+          "package_name": "com.example.cambox"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "680018435131-rphkge9njhoaaap8mieohn8t25ja1hk6.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.cambox",
+            "certificate_hash": "d1ec22b58426e085877c6753572c54e9f1c511d8"
+          }
+        },
+        {
+          "client_id": "680018435131-shuc7pg5qsm7j6fv4mn3ah59lm9ontjt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA7H7-iV1J9k732N0SN5EkcBTYz4L4J3Sc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "680018435131-shuc7pg5qsm7j6fv4mn3ah59lm9ontjt.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
