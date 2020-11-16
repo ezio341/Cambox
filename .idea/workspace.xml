@@ -6,6 +6,7 @@
     </shared>
   </component>
   <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_LOG_LEVEL" value="verbose" />
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
   </component>
   <component name="AutoImportSettings">
@@ -13,13 +14,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="585e182b-ef9d-4d36-8848-6dfa62b1ad59" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/CategoriesFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/EditProfileFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/ProductFragment.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_search.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_categories.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_edit_profile.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_github_bumptech_glide_glide_3_7_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__com_google_firebase_firebase_storage_19_2_0_aar.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/ProductAdapter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/model/Product.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/model/Profile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_favorite_border_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_baseline_favorite_pink_24.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_product.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
@@ -36,9 +38,16 @@
       <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/assetWizardSettings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules/app/CamBox.app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/CamBox.app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_back.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_back.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_profile.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/ProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/ProductFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Fragment/ProfileFragment.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/MainActivity.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/model/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/model/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -46,7 +55,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_2_XL_API_30]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -85,10 +94,10 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="layoutResourceFile" />
         <option value="navigationResourceFile" />
-        <option value="Class" />
         <option value="resourceFile" />
+        <option value="layoutResourceFile" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -109,7 +118,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/AppData/Local/Android/Sdk" />
     <property name="last_directory_selection" value="$PROJECT_DIR$/app/src/test/java" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Mobile/RecyclerView/06-Android-MVVM-Java-RecyclerView" />
     <property name="project.structure.last.edited" value="SDK Location" />
     <property name="project.structure.proportion" value="0.17" />
     <property name="project.structure.side.proportion" value="0.2" />
@@ -300,11 +309,11 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="405" y="144" key="#com.intellij.fileTypes.FileTypeChooser/0.0.1280.680@0.0.1280.680" timestamp="1601602889438" />
-    <state x="736" y="53" key="#com.intellij.ide.util.MemberChooser" timestamp="1604900324401">
+    <state x="736" y="53" key="#com.intellij.ide.util.MemberChooser" timestamp="1605501322218">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="690" y="49" key="#com.intellij.ide.util.MemberChooser/0.0.1280.680@0.0.1280.680" timestamp="1602666029800" />
-    <state x="736" y="53" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1604900324401" />
+    <state x="736" y="53" key="#com.intellij.ide.util.MemberChooser/0.0.1366.738@0.0.1366.738" timestamp="1605501322218" />
     <state x="371" y="120" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1602669514826">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -330,10 +339,11 @@
     </state>
     <state x="221" y="96" key="AndroidCreateResourceDirectoryDialog/0.0.1280.680@0.0.1280.680" timestamp="1601602866311" />
     <state x="236" y="104" key="AndroidCreateResourceDirectoryDialog/0.0.1366.738@0.0.1366.738" timestamp="1604899285195" />
-    <state x="0" y="99" key="AndroidCreateResourceFileDialog" timestamp="1602680565323">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="0" y="107" key="AndroidCreateResourceFileDialog" timestamp="1605133346880">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="0" y="99" key="AndroidCreateResourceFileDialog/0.0.1280.680@0.0.1280.680" timestamp="1602680565323" />
+    <state x="0" y="107" key="AndroidCreateResourceFileDialog/0.0.1366.738@0.0.1366.738" timestamp="1605133346880" />
     <state x="266" y="0" key="CommitChangelistDialog2" timestamp="1604925990533">
       <screen x="0" y="0" width="1280" height="680" />
     </state>
@@ -342,31 +352,31 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="321" y="96" key="Downloadable.Font.Dialog.Size/0.0.1280.680@0.0.1280.680" timestamp="1602727872048" />
-    <state x="449" y="104" width="451" height="489" key="FileChooserDialogImpl" timestamp="1604898449645">
+    <state x="449" y="104" width="451" height="489" key="FileChooserDialogImpl" timestamp="1605136427998">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="421" y="96" width="451" height="489" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1602683246084" />
-    <state x="449" y="104" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1604898449645" />
-    <state width="1236" height="339" key="GridCell.Tab.0.bottom" timestamp="1604914150232">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state x="449" y="104" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1605136427998" />
+    <state width="1323" height="181" key="GridCell.Tab.0.bottom" timestamp="1605503596620">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604914150232" />
-    <state width="1286" height="166" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1604900906046" />
-    <state width="1236" height="339" key="GridCell.Tab.0.center" timestamp="1604914150232">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1323" height="181" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1605503596620" />
+    <state width="1323" height="181" key="GridCell.Tab.0.center" timestamp="1605503596619">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604914150232" />
-    <state width="1286" height="166" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1604900906046" />
-    <state width="1236" height="339" key="GridCell.Tab.0.left" timestamp="1604914150231">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1323" height="181" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1605503596619" />
+    <state width="1323" height="181" key="GridCell.Tab.0.left" timestamp="1605503596619">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604914150231" />
-    <state width="1286" height="166" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1604900906046" />
-    <state width="1236" height="339" key="GridCell.Tab.0.right" timestamp="1604914150232">
-      <screen x="0" y="0" width="1280" height="680" />
+    <state width="1323" height="181" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1605503596619" />
+    <state width="1323" height="181" key="GridCell.Tab.0.right" timestamp="1605503596620">
+      <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604914150232" />
-    <state width="1286" height="166" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1604900906046" />
+    <state width="1323" height="181" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1605503596620" />
     <state width="1236" height="371" key="GridCell.Tab.1.bottom" timestamp="1601881463695">
       <screen x="0" y="0" width="1280" height="680" />
     </state>

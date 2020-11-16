@@ -7,6 +7,9 @@
         <variable
             name="user"
             type="com.example.cambox.model.User" />
+        <variable
+            name="profile"
+            type="com.example.cambox.model.Profile" />
     </data>
 
     <FrameLayout
@@ -63,7 +66,7 @@
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="#0A1034"
                     android:textSize="24dp"
-                    android:text="@{user.name}"
+                    android:text="@{profile.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
@@ -75,7 +78,7 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_medium"
-                    android:text="Malang"
+                    android:text="@{profile.address}"
                     android:textColor="@color/browser_actions_title_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
@@ -169,7 +172,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="0dp"
                 android:layout_marginTop="0dp"
-                android:background="@color/browser_actions_bg_grey"
+                android:background="@android:color/holo_red_light"
                 android:fontFamily="@font/poppins"
                 android:onClick="logout"
                 android:text="Logout"

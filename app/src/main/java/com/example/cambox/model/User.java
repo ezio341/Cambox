@@ -5,13 +5,55 @@ import android.os.Parcelable;
 
 import com.google.firebase.database.IgnoreExtraProperties;
 
-@IgnoreExtraProperties
-public class User implements Parcelable{
-    String email;
-    String name;
-    String password;
-    String phone;
 
+public class User implements Parcelable{
+    private String email;
+    private String name;
+    private String password;
+    private String phone;
+    private String key;
+
+    protected User(Parcel in) {
+        email = in.readString();
+        name = in.readString();
+        password = in.readString();
+        phone = in.readString();
+        key = in.readString();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(email);
+        dest.writeString(name);
+        dest.writeString(password);
+        dest.writeString(phone);
+        dest.writeString(key);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<User> CREATOR = new Creator<User>() {
+        @Override
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
+    }
 
     public User() {
     }
@@ -32,25 +74,6 @@ public class User implements Parcelable{
         this.name = name;
         this.password = password;
     }
-
-    protected User(Parcel in) {
-        email = in.readString();
-        name = in.readString();
-        password = in.readString();
-        phone = in.readString();
-    }
-
-    public static final Creator<User> CREATOR = new Creator<User>() {
-        @Override
-        public User createFromParcel(Parcel in) {
-            return new User(in);
-        }
-
-        @Override
-        public User[] newArray(int size) {
-            return new User[size];
-        }
-    };
 
     public String getEmail() {
         return email;
@@ -84,17 +107,4 @@ public class User implements Parcelable{
         this.phone = phone;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeString(email);
-        dest.writeString(name);
-        dest.writeString(password);
-        dest.writeString(phone);
-    }
 }

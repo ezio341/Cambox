@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,11 +17,14 @@ import com.example.cambox.Fragment.CartFragment;
 import com.example.cambox.Fragment.FavoriteFragment;
 import com.example.cambox.Fragment.HomeFragment;
 import com.example.cambox.Fragment.OrderFragment;
+import com.example.cambox.Fragment.ProductFragment;
 import com.example.cambox.Fragment.ProfileFragment;
 import com.example.cambox.databinding.FragmentProfileBinding;
 import com.example.cambox.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottom_view;
@@ -30,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         user = (User)getIntent().getParcelableExtra("user");
-        getFragment(new HomeFragment());
+        getFragment(new ProductFragment());
 
         bottom_view = findViewById(R.id.bottom_view);
         bottom_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
@@ -38,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 if(item.getItemId() == R.id.home){
                     getSupportActionBar().setTitle("Home");
-                    getFragment(new HomeFragment());
+                    getFragment(new ProductFragment());
                 }else if(item.getItemId() == R.id.favorite) {
                     getSupportActionBar().setTitle("Favorite");
                     getFragment(new FavoriteFragment());
@@ -50,9 +54,7 @@ public class MainActivity extends AppCompatActivity {
                     getFragment(new CartFragment());
                 }else if(item.getItemId() == R.id.profile) {
                     getSupportActionBar().setTitle("Profile");
-                    ProfileFragment profileFrag = new ProfileFragment(user);
-                    getFragment(profileFrag);
-
+                    getFragment(new ProfileFragment(user));
                 }
                 return false;
             }

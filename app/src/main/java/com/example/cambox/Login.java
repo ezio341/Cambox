@@ -77,6 +77,7 @@ public class Login extends AppCompatActivity {
                         passdb = data.child("password").getValue(String.class);
                         try {
                             if (emaildb.equals(Util.digest(user.getEmail())) && passdb.equals(user.getPassword())) {
+                                user.setKey(data.getKey());
                                 user.setName(data.child("name").getValue(String.class));
                                 user.setPhone(data.child("phone").getValue(String.class));
                                 Toast.makeText(Login.this, "Login Successfully.", Toast.LENGTH_SHORT).show();
