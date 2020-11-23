@@ -57,9 +57,6 @@ public class Product {
     }
 
     public String getPrice() {
-        if(price!=null){
-            price = "Rp "+price;
-        }
         return price;
     }
 

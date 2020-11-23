@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.cambox.R;
 import com.example.cambox.databinding.ItemProductBinding;
+import com.example.cambox.interfaces.OnClickListenerProduct;
 import com.example.cambox.model.Product;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
@@ -22,13 +23,15 @@ import java.util.List;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
-    List<Product> list;
-    FirebaseAuth auth;
+    private List<Product> list;
+    private OnClickListenerProduct listener;
 
     public ProductAdapter(List<Product> list) {
-        auth = FirebaseAuth.getInstance();
-        auth.signInWithEmailAndPassword("user@gmail.com", "user12345");
         this.list = list;
+    }
+
+    public void setListener(OnClickListenerProduct listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -63,8 +66,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             this.binding = binding;
         }
         public void bind(Product product){
-            binding.setProduct(product);
             Glide.with(binding.getRoot().getContext()).load(product.getImg_token()).into(binding.imageView2);
+            binding.setProduct(product);
+            binding.setListener(listener);
             binding.executePendingBindings();
         }
     }
