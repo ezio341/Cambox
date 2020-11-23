@@ -7,14 +7,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-public class SplashScreen extends AppCompatActivity {
+import com.google.firebase.auth.FirebaseAuth;
 
+public class SplashScreen extends AppCompatActivity {
     LinearLayout btnStart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        getSupportActionBar().hide();
 
         btnStart = (LinearLayout) findViewById(R.id.btnStart);
 

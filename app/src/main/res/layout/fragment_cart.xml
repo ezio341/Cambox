@@ -1,66 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F5F7F8"
-    tools:context=".MainActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="19dp">
+    <data>
 
-        <TextView
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#F5F7F8"
+        tools:context=".MainActivity">
+
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="19dp">
 
-            android:layout_marginTop="0dp"
-            android:fontFamily="@font/poppins_bold"
-            android:text="Cart"
-            android:textColor="#0A1034"
-            android:textSize="32dp"></TextView>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
 
-    <LinearLayout
-        android:layout_width="353dp"
-        android:layout_height="130dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="80dp"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
-            android:fontFamily="@font/poppins_medium"
-            android:text="Produk 1"
-            android:textColor="#0A1034"
-            android:textSize="24dp">
-        </TextView>
-    </LinearLayout>
+                android:layout_marginTop="0dp"
+                android:fontFamily="@font/poppins_bold"
+                android:text="Cart"
+                android:textColor="#0A1034"
+                android:textSize="32dp"></TextView>
+        </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/btnStart"
-        android:layout_width="334dp"
-        android:layout_height="55dp"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="40dp"
-        android:layout_marginTop="580dp"
-        android:background="#A1A2FF"
-        android:elevation="10dp"
-        android:gravity="center">
-        <!--        android:onClick="Start">-->
+        <LinearLayout
+            android:layout_width="353dp"
+            android:layout_height="130dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="80dp"
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="CheckOut"
-            android:textColor="#FFFF"
-            android:textSize="18dp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:fontFamily="@font/poppins_medium"
+                android:text="Produk 1"
+                android:textColor="#0A1034"
+                android:textSize="24dp"></TextView>
+        </LinearLayout>
 
-    </LinearLayout>
-</FrameLayout>
+        <LinearLayout
+            android:id="@+id/btnStart"
+            android:layout_width="334dp"
+            android:layout_height="55dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="580dp"
+            android:background="#A1A2FF"
+            android:elevation="10dp"
+            android:gravity="center">
+            <!--        android:onClick="Start">-->
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="CheckOut"
+                android:textColor="#FFFF"
+                android:textSize="18dp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+    </FrameLayout>
+</layout>

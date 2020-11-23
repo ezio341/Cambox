@@ -2,29 +2,23 @@ package com.example.cambox;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.cambox.Fragment.CartFragment;
-import com.example.cambox.Fragment.FavoriteFragment;
-import com.example.cambox.Fragment.HomeFragment;
-import com.example.cambox.Fragment.OrderFragment;
-import com.example.cambox.Fragment.ProductFragment;
-import com.example.cambox.Fragment.ProfileFragment;
-import com.example.cambox.databinding.FragmentProfileBinding;
+import com.example.cambox.fragment.CartFragment;
+import com.example.cambox.fragment.FavoriteFragment;
+import com.example.cambox.fragment.OrderFragment;
+import com.example.cambox.fragment.ProductFragment;
+import com.example.cambox.fragment.ProfileFragment;
 import com.example.cambox.model.User;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottom_view;
@@ -45,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
                     getFragment(new ProductFragment());
                 }else if(item.getItemId() == R.id.favorite) {
                     getSupportActionBar().setTitle("Favorite");
-                    getFragment(new FavoriteFragment());
+                    getFragment(new FavoriteFragment(user));
                 }else if(item.getItemId() == R.id.order) {
                     getSupportActionBar().setTitle("Orders");
                     getFragment(new OrderFragment());

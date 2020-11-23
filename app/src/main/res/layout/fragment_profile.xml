@@ -65,7 +65,7 @@
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_medium"
                     android:textColor="#0A1034"
-                    android:textSize="24dp"
+                    android:textSize="20dp"
                     android:text="@{profile.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">

@@ -3,6 +3,7 @@ package com.example.cambox;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -12,9 +13,11 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
 
+import com.example.cambox.databinding.ActivityLoginBinding;
 import com.example.cambox.model.User;
-import com.example.cambox.Util.Util;
+import com.example.cambox.util.Util;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -22,46 +25,38 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
-    EditText mEmail,mPassword;
-    Button mlogin;
-    TextView mRegister;
-    FirebaseDatabase fAuth;
+    ActivityLoginBinding binding;
     DatabaseReference ref;
-    ProgressBar progressBar;
     User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        getSupportActionBar().hide();
 
-        mEmail = findViewById(R.id.mEmail);
-        mPassword = findViewById(R.id.mPassword);
-        progressBar = findViewById(R.id.progressBar);
-        fAuth = FirebaseDatabase.getInstance();
-        ref = fAuth.getReference();
-        mlogin = findViewById(R.id.btnLogin);
-        mRegister = findViewById(R.id.createText);
+        ref = FirebaseDatabase.getInstance().getReference();
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_login);
 
-        mlogin.setOnClickListener(new View.OnClickListener() {
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String email = mEmail.getText().toString().trim();
-                String password = mPassword.getText().toString().trim();
+                String email = binding.mEmail.getText().toString().trim();
+                String password = binding.mPassword.getText().toString().trim();
 
                 if(TextUtils.isEmpty(email)){
-                    mEmail.setError("Email is Required");
+                    binding.mEmail.setError("Email is Required");
                     return;
                 }
 
                 if(TextUtils.isEmpty(password)){
-                    mEmail.setError("Email is Required");
+                    binding.mPassword.setError("Email is Required");
                     return;
                 }
 
 //                progressBar.setVisibility(View.VISIBLE);
 
-                user = new User(mEmail.getText().toString(), mPassword.getText().toString());
+                user = new User(binding.mEmail.getText().toString(), binding.mPassword.getText().toString());
                 //Authenticate user
                 ref.addValueEventListener(new ValueEventListener() {
                     @Override
@@ -69,14 +64,15 @@ public class Login extends AppCompatActivity {
                         //variable to store email and password
                         String emaildb = "";
                         String passdb = "";
-                        boolean valid=false;
                         DataSnapshot data = snapshot.child("Account").child(Util.digest(user.getEmail()));
                         //get encrypted email from key value of user.
                         emaildb = data.getKey();
                         //get the password value
                         passdb = data.child("password").getValue(String.class);
+                                Log.d("key", "login pressed");
                         try {
                             if (emaildb.equals(Util.digest(user.getEmail())) && passdb.equals(user.getPassword())) {
+                                binding.progressBar2.setVisibility(View.VISIBLE);
                                 user.setKey(data.getKey());
                                 user.setName(data.child("name").getValue(String.class));
                                 user.setPhone(data.child("phone").getValue(String.class));
@@ -84,6 +80,7 @@ public class Login extends AppCompatActivity {
                                 Intent intent = new Intent(Login.this, MainActivity.class);
                                 intent.putExtra("user",user);
                                 startActivity(intent);
+                                finish();
                             } else {
                                 Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                             }
@@ -94,14 +91,14 @@ public class Login extends AppCompatActivity {
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT);
                     }
                 });
             }
         });
 
 
-        mRegister.setOnClickListener(new View.OnClickListener() {
+        binding.createText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), Register.class));
