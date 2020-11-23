@@ -1,0 +1,19 @@
+Index: app/src/main/java/com/example/cambox/model/Product.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.cambox.model;\r\n\r\npublic class Product {\r\n    String name;\r\n    String desc;\r\n    String img;\r\n    String img_token;\r\n    String price;\r\n    String product_date;\r\n    String stock;\r\n    String discount;\r\n\r\n    public String getImg_token() {\r\n        return img_token;\r\n    }\r\n\r\n    public void setImg_token(String img_token) {\r\n        this.img_token = img_token;\r\n    }\r\n\r\n    public Product() {\r\n    }\r\n\r\n    public Product(String name, String desc, String img, String img_token, String price, String product_date, String stock, String discount) {\r\n        this.name = name;\r\n        this.desc = desc;\r\n        this.img = img;\r\n        this.img_token = img_token;\r\n        this.price = price;\r\n        this.product_date = product_date;\r\n        this.stock = stock;\r\n        this.discount = discount;\r\n    }\r\n\r\n    public String getName() {\r\n        return name;\r\n    }\r\n\r\n    public void setName(String name) {\r\n        this.name = name;\r\n    }\r\n\r\n    public String getDesc() {\r\n        return desc;\r\n    }\r\n\r\n    public void setDesc(String desc) {\r\n        this.desc = desc;\r\n    }\r\n\r\n    public String getImg() {\r\n        return img;\r\n    }\r\n\r\n    public void setImg(String img) {\r\n        this.img = img;\r\n    }\r\n\r\n    public String getPrice() {\r\n        if(price!=null){\r\n            price = \"Rp \"+price;\r\n        }\r\n        return price;\r\n    }\r\n\r\n    public void setPrice(String price) {\r\n        this.price = price;\r\n    }\r\n\r\n    public String getProduct_date() {\r\n        return product_date;\r\n    }\r\n\r\n    public void setProduct_date(String product_date) {\r\n        this.product_date = product_date;\r\n    }\r\n\r\n    public String getStock() {\r\n        return stock;\r\n    }\r\n\r\n    public void setStock(String stock) {\r\n        this.stock = stock;\r\n    }\r\n\r\n    public String getDiscount() {\r\n        return discount;\r\n    }\r\n\r\n    public void setDiscount(String discount) {\r\n        this.discount = discount;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- app/src/main/java/com/example/cambox/model/Product.java	(revision 9a939332a7b0b16f23a4625f276b34c0eaaa469f)
++++ app/src/main/java/com/example/cambox/model/Product.java	(date 1606143682945)
+@@ -57,9 +57,6 @@
+     }
+ 
+     public String getPrice() {
+-        if(price!=null){
+-            price = "Rp "+price;
+-        }
+         return price;
+     }
+ 
