@@ -58,7 +58,7 @@ public class Login extends AppCompatActivity {
 
                 user = new User(binding.mEmail.getText().toString(), binding.mPassword.getText().toString());
                 //Authenticate user
-                ref.addValueEventListener(new ValueEventListener() {
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         //variable to store email and password

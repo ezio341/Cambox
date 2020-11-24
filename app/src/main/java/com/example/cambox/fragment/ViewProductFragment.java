@@ -9,9 +9,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.cambox.R;
@@ -19,8 +21,14 @@ import com.example.cambox.databinding.FragmentViewProductBinding;
 import com.example.cambox.model.Cart;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class ViewProductFragment extends Fragment {
@@ -55,6 +63,12 @@ public class ViewProductFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,8 +78,37 @@ public class ViewProductFragment extends Fragment {
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Cart cart = new Cart(product, 1);
-                ref.child("Cart").child(user.getKey()).push().setValue(cart);
+                final Cart cart = new Cart(product, 1);
+                ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        boolean isCartAvailable = false;
+                        List<Cart> cartList = new ArrayList<>();
+                        for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
+                            Cart dbCart = data.getValue(Cart.class);
+                            cartList.add(dbCart);
+                        }
+                        for(Cart c : cartList){
+                            if(c.getProduct().getKey().equals(product.getKey())){
+                                isCartAvailable = true;
+                                Toast.makeText(getContext(), "Product is already available in Cart", Toast.LENGTH_SHORT).show();
+                            }
+                        }
+
+                        if(!isCartAvailable){
+                            cartList.add(new Cart(product, 1, ""+cartList.size()));
+                            ref.child("Cart").child(user.getKey()).setValue(cartList);
+                            Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+
+                });
+
             }
         });
     }

@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.example.cambox.databinding.ItemCartBinding;
+import com.example.cambox.interfaces.OnClickListenerCart;
 import com.example.cambox.model.Cart;
 
 import java.util.List;
@@ -15,9 +16,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
     List<Cart> cartlist;
+    OnClickListenerCart listener;
 
     public CartAdapter(List<Cart> cartlist) {
         this.cartlist = cartlist;
+    }
+
+    public void setListener(OnClickListenerCart listener) {
+        this.listener = listener;
     }
 
     @NonNull
@@ -49,6 +55,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         public void bind(Cart cart){
             Glide.with(binding.getRoot().getContext()).load(cart.getProduct().getImg_token()).into(binding.imageView3);
             binding.setCart(cart);
+            binding.setListener(listener);
             binding.executePendingBindings();
         }
     }

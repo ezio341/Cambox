@@ -1,10 +1,24 @@
 package com.example.cambox.model;
 
-public class Cart {
+import com.example.cambox.BR;
+
+import androidx.databinding.BaseObservable;
+import androidx.databinding.Bindable;
+
+public class Cart extends BaseObservable {
     private Product product;
     private int amount;
+    private String key;
 
     public Cart() {
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public Product getProduct() {
@@ -15,16 +29,24 @@ public class Cart {
         this.product = product;
     }
 
+    @Bindable
     public int getAmount() {
         return amount;
     }
 
     public void setAmount(int amount) {
         this.amount = amount;
+        notifyPropertyChanged(BR.amount);
     }
 
     public Cart(Product product, int amount) {
         this.product = product;
         this.amount = amount;
+    }
+
+    public Cart(Product product, int amount, String key) {
+        this.product = product;
+        this.amount = amount;
+        this.key = key;
     }
 }
