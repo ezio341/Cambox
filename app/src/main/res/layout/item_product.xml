@@ -10,6 +10,7 @@
         <variable
             name="listener"
             type="com.example.cambox.interfaces.OnClickListenerProduct" />
+
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -28,15 +28,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         user = (User)getIntent().getParcelableExtra("user");
-        getFragment(new ProductFragment());
+        getFragment(new ProductFragment(user));
 
         bottom_view = findViewById(R.id.bottom_view);
         bottom_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                item.setChecked(true);
                 if(item.getItemId() == R.id.home){
                     getSupportActionBar().setTitle("Home");
-                    getFragment(new ProductFragment());
+                    getFragment(new ProductFragment(user));
                 }else if(item.getItemId() == R.id.favorite) {
                     getSupportActionBar().setTitle("Favorite");
                     getFragment(new FavoriteFragment(user));
@@ -45,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
                     getFragment(new OrderFragment());
                 }else if(item.getItemId() == R.id.cart) {
                     getSupportActionBar().setTitle("Cart");
-                    getFragment(new CartFragment());
+                    getFragment(new CartFragment(user));
                 }else if(item.getItemId() == R.id.profile) {
                     getSupportActionBar().setTitle("Profile");
                     getFragment(new ProfileFragment(user));

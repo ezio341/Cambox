@@ -2,19 +2,79 @@ package com.example.cambox.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.cambox.R;
+import com.example.cambox.adapter.CartAdapter;
+import com.example.cambox.databinding.FragmentCartBinding;
+import com.example.cambox.model.Cart;
+import com.example.cambox.model.Product;
+import com.example.cambox.model.User;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class CartFragment extends Fragment {
+    FragmentCartBinding binding;
+    User user;
+    List<Cart> cartList;
+    DatabaseReference ref;
+
+    public CartFragment(User user) {
+        this.user = user;
+    }
+
+    public CartFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ref = FirebaseDatabase.getInstance().getReference();
+        cartList = new ArrayList<>();
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false);
+        ref.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                String user_key = user.getKey();
+                for(DataSnapshot data : snapshot.child("Cart").child(user_key).getChildren()){
+                    Cart cart = data.getValue(Cart.class);
+                    cartList.add(cart);
+                }
+                CartAdapter adapter = new CartAdapter(cartList);
+                binding.rvCart.setLayoutManager(new LinearLayoutManager(getContext()));
+                binding.rvCart.setAdapter(adapter);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 }

@@ -20,6 +20,7 @@ import com.example.cambox.adapter.ProductAdapter;
 import com.example.cambox.databinding.FragmentProductBinding;
 import com.example.cambox.interfaces.OnClickListenerProduct;
 import com.example.cambox.model.Product;
+import com.example.cambox.model.User;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,12 +35,18 @@ import java.util.List;
 
 public class ProductFragment extends Fragment {
     FragmentProductBinding binding;
+    User user;
 
     DatabaseReference dbRef;
     StorageReference storageRef;
 
     ProgressDialog progressDialog;
     List<Product> list;
+
+    public ProductFragment(User user) {
+        this.user = user;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,18 +68,20 @@ public class ProductFragment extends Fragment {
         dbRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int i=1;
                 for(DataSnapshot data : snapshot.child("Item").getChildren()){
                     Product products= data.getValue(Product.class);
                     list.add(products);
-                    i++;
                 }
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 ProductAdapter adapter = new ProductAdapter(list);
                 adapter.setListener(new OnClickListenerProduct() {
                     @Override
                     public void onclick(Product product) {
-                        getFragment(new ViewProductFragment(product));
+                        ViewProductFragment fragment = new ViewProductFragment(product, ProductFragment.this);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("user", user);
+                        fragment.setArguments(bundle);
+                        getFragment(fragment);
                     }
                 });
                 binding.recyclerView.setAdapter(adapter);
@@ -92,6 +101,7 @@ public class ProductFragment extends Fragment {
         progressDialog.dismiss();
 
     }
+
     private void getFragment(Fragment fragment){
         FragmentManager manager = getActivity().getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = manager.beginTransaction();

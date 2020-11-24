@@ -3,6 +3,7 @@ package com.example.cambox.fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -33,18 +34,27 @@ public class FavoriteFragment extends Fragment {
     User user;
     FragmentFavoriteBinding binding;
     List<Product> productList;
+    DatabaseReference ref;
+
     public FavoriteFragment(User user){
         this.user = user;
-        this.productList = new ArrayList<>();
     }
     public FavoriteFragment(){
     }
+
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        ref = FirebaseDatabase.getInstance().getReference();
+        this.productList = new ArrayList<>();
+    }
+
+    @Override
+    public View onCreateView(final LayoutInflater inflater, ViewGroup container,
+                             final Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
         // Inflate the layout for this fragment
-        final DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+
         binding.rvFavorite.setLayoutManager(new GridLayoutManager(getContext(), 2));
         ref.addValueEventListener(new ValueEventListener() {
             @Override
@@ -52,15 +62,19 @@ public class FavoriteFragment extends Fragment {
                 for(final DataSnapshot i:snapshot.child("Favorite").child(user.getKey()).getChildren()){
                     Product p = snapshot.child("Item").child(i.getKey()).getValue(Product.class);
                     productList.add(p);
-                    ProductAdapter adapter = new ProductAdapter(productList);
-                    adapter.setListener(new OnClickListenerProduct() {
-                        @Override
-                        public void onclick(Product product) {
-                            getFragment(new ViewProductFragment(product));
-                        }
-                    });
-                    binding.rvFavorite.setAdapter(adapter);
                 }
+                ProductAdapter adapter = new ProductAdapter(productList);
+                adapter.setListener(new OnClickListenerProduct() {
+                    @Override
+                    public void onclick(Product product) {
+                        ViewProductFragment fragment = new ViewProductFragment(product, FavoriteFragment.this);
+                        Bundle bundle = new Bundle();
+                        bundle.putParcelable("user", user);
+                        fragment.setArguments(bundle);
+                        getFragment(fragment);
+                    }
+                });
+                binding.rvFavorite.setAdapter(adapter);
             }
 
             @Override

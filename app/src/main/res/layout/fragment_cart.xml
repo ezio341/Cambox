@@ -17,7 +17,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
-            android:layout_marginTop="19dp">
+            android:layout_marginTop="19dp"
+            android:orientation="vertical">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -28,24 +29,12 @@
                 android:text="Cart"
                 android:textColor="#0A1034"
                 android:textSize="32dp"></TextView>
-        </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="353dp"
-            android:layout_height="130dp"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="80dp"
-            android:orientation="horizontal">
-
-            <TextView
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvCart"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Produk 1"
-                android:textColor="#0A1034"
-                android:textSize="24dp"></TextView>
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <LinearLayout
@@ -69,5 +58,6 @@
                 android:textStyle="bold" />
 
         </LinearLayout>
+
     </FrameLayout>
 </layout>

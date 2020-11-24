@@ -18,7 +18,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/D:/Android/Sdk/icons/material/materialicons/favorite/baseline_favorite_24.xml" />
+                                      <entry key="url" value="file:/D:/Android/Sdk/icons/material/materialicons/delete/baseline_delete_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -28,8 +28,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="f24156" />
-                            <entry key="outputName" value="ic_baseline_favorite_pink_24" />
+                            <entry key="color" value="e8000f" />
+                            <entry key="outputName" value="ic_baseline_delete_24" />
                             <entry key="sourceFile" value="D:\POLYTHECNIC\SEMESTER 5\Proyek\CamBox" />
                           </map>
                         </option>

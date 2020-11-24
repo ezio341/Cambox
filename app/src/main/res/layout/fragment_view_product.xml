@@ -16,7 +16,7 @@
         tools:context=".fragment.ViewProductFragment">
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/btnAddToCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"

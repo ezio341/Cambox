@@ -2,8 +2,12 @@ package com.example.cambox.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,21 +16,30 @@ import android.view.ViewGroup;
 import com.bumptech.glide.Glide;
 import com.example.cambox.R;
 import com.example.cambox.databinding.FragmentViewProductBinding;
+import com.example.cambox.model.Cart;
 import com.example.cambox.model.Product;
+import com.example.cambox.model.User;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 
 public class ViewProductFragment extends Fragment {
     FragmentViewProductBinding binding;
     Product product;
+    Fragment backDirection;
+    DatabaseReference ref;
+    User user;
 
-    public ViewProductFragment(Product product) {
+    public ViewProductFragment(Product product, Fragment fragmentDirection) {
         this.product = product;
+        this.backDirection = fragmentDirection;
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        ref = FirebaseDatabase.getInstance().getReference();
+        user = (User) getArguments().getParcelable("user");
     }
 
     @Override
@@ -37,5 +50,30 @@ public class ViewProductFragment extends Fragment {
         binding.setProduct(product);
         Glide.with(binding.getRoot().getContext()).load(product.getImg_token()).into(binding.imgProduct);
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragment(backDirection);
+            }
+        });
+        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Cart cart = new Cart(product, 1);
+                ref.child("Cart").child(user.getKey()).push().setValue(cart);
+            }
+        });
+    }
+
+    private void getFragment(Fragment fragment){
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
+        fragmentTransaction.commit();
     }
 }

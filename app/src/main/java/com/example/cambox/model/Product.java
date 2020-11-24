@@ -9,6 +9,7 @@ public class Product {
     String product_date;
     String stock;
     String discount;
+    String key;
 
     public String getImg_token() {
         return img_token;
@@ -21,7 +22,7 @@ public class Product {
     public Product() {
     }
 
-    public Product(String name, String desc, String img, String img_token, String price, String product_date, String stock, String discount) {
+    public Product(String name, String desc, String img, String img_token, String price, String product_date, String stock, String discount, String key) {
         this.name = name;
         this.desc = desc;
         this.img = img;
@@ -30,6 +31,7 @@ public class Product {
         this.product_date = product_date;
         this.stock = stock;
         this.discount = discount;
+        this.key = key;
     }
 
     public String getName() {
@@ -38,6 +40,14 @@ public class Product {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getKey() {
+        return key;
+    }
+
+    public void setKey(String key) {
+        this.key = key;
     }
 
     public String getDesc() {
