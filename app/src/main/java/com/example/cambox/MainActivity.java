@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         user = (User)getIntent().getParcelableExtra("user");
         getFragment(new ProductFragment(user));
+        getSupportActionBar().hide();
 
         bottom_view = findViewById(R.id.bottom_view);
         bottom_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
