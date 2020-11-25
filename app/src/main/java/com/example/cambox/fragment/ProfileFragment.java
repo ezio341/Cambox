@@ -3,12 +3,16 @@ package com.example.cambox.fragment;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.example.cambox.R;
 import com.example.cambox.databinding.FragmentProfileBinding;
@@ -24,7 +28,6 @@ public class ProfileFragment extends Fragment {
     DatabaseReference ref;
     FragmentProfileBinding binding;
     User user;
-    Profile profile;
 
     public ProfileFragment(User user) {
         this.user = user;
@@ -46,10 +49,26 @@ public class ProfileFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return binding.getRoot();
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        binding.btnEditProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getFragment(new EditProfileFragment(user));
+            }
+        });
+    }
+    private void getFragment(Fragment fragment){
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
+        fragmentTransaction.commit();
+    }
 }

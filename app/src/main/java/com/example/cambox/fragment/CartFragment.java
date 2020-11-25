@@ -7,6 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
@@ -63,11 +64,11 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.child("Cart").child(user.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 String user_key = user.getKey();
-                for(DataSnapshot data : snapshot.child("Cart").child(user_key).getChildren()){
+                for(DataSnapshot data : snapshot.getChildren()){
                     Cart cart = data.getValue(Cart.class);
                     cartList.add(cart);
                 }
@@ -83,14 +84,32 @@ public class CartFragment extends Fragment {
                         }else{
                             btnDecrease.setEnabled(true);
                             cart.setAmount(amount);
-//                            ref.child("Cart").child(user.getKey()).child(cart.getKey()).setValue(cart);
+                            ref.child("Cart").child(user.getKey()).child(cart.getKey()).setValue(cart);
                         }
                     }
 
                     @Override
-                    public void delete(Cart cart) {
-                        DatabaseReference delRef = ref.child("Cart").child(user.getKey()).child(cart.getKey());
-                        delRef.removeValue();
+                    public void delete(final Cart cart) {
+                        final ProgressDialog pg = new ProgressDialog(getContext());
+                        pg.setTitle("Deleting");
+                        pg.setMessage("Please Wait ...");
+                        pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        pg.show();
+                        new Thread(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    DatabaseReference delRef = ref.child("Cart").child(user.getKey()).child(cart.getKey());
+                                    delRef.removeValue();
+                                    Thread.sleep(3000);
+                                    FragmentManager manager = getActivity().getSupportFragmentManager();
+                                    getFragment(new CartFragment(user));
+                                    pg.dismiss();
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }).start();
                         Toast.makeText(getContext(), "Product "+cart.getProduct().getName()+" is removed", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -99,7 +118,7 @@ public class CartFragment extends Fragment {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
         return binding.getRoot();
@@ -109,5 +128,10 @@ public class CartFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-
+    private void getFragment(Fragment fragment){
+        FragmentManager manager = getActivity().getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = manager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
+        fragmentTransaction.commit();
+    }
 }

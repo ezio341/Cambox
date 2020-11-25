@@ -49,11 +49,11 @@
                 android:layout_width="94.68dp"
                 android:layout_height="92dp"
                 android:layout_marginLeft="30dp"
-
                 android:layout_marginTop="10dp"
-                tools:srcCompat="@tools:sample/avatars" />
+                tools:srcCompat="@drawable/ic_baseline_person_24" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/btnEditProfile"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
@@ -64,9 +64,9 @@
                     android:layout_marginStart="24dp"
                     android:layout_marginTop="8dp"
                     android:fontFamily="@font/poppins_medium"
+                    android:text="@{profile.name}"
                     android:textColor="#0A1034"
                     android:textSize="20dp"
-                    android:text="@{profile.name}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent">
 
