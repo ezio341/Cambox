@@ -8,8 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.cambox.fragment.CartFragment;
 import com.example.cambox.fragment.FavoriteFragment;
@@ -21,13 +23,16 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
-    BottomNavigationView bottom_view;
-    User user;
+    private static final int TIME_DELAY = 2000;
+    private static long back_pressed;
+    private BottomNavigationView bottom_view;
+    private User user;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         user = (User)getIntent().getParcelableExtra("user");
+        Log.d("user key", user.getKey());
         getFragment(new ProductFragment(user));
         getSupportActionBar().hide();
 
@@ -55,6 +60,22 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (back_pressed + TIME_DELAY > System.currentTimeMillis()) {
+            super.onBackPressed();
+        } else {
+            Toast.makeText(getBaseContext(), "Press once again to exit!",
+                    Toast.LENGTH_SHORT).show();
+        }
+        back_pressed = System.currentTimeMillis();
     }
 
     private void getFragment(Fragment fragment){

@@ -12,6 +12,10 @@ public class Profile {
     public Profile() {
     }
 
+    public Profile(String name) {
+        this.name = name;
+    }
+
     public Profile(String name, String address, String dob, String gender) {
         this.name = name;
         this.address = address;

@@ -28,5 +28,5 @@
         android:id="@+id/profile"
         android:checkable="true"
         android:icon="@drawable/ic_profile"
-        android:title="Cart" />
+        android:title="Profile" />
 </menu>

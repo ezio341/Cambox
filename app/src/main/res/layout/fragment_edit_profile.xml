@@ -14,7 +14,7 @@
         android:id="@+id/editprofilelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F7F8">
+        android:background="@color/backgroundColor">
 
         <LinearLayout
             android:id="@+id/headereditprofile"
@@ -28,7 +28,7 @@
                 android:id="@+id/btnEditProfileBack"
                 android:layout_width="45dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="20dp"
                 android:layout_marginTop="0dp"
                 android:background="#00FFFFFF"
                 android:drawableStart="@drawable/ic_back" />
@@ -42,7 +42,7 @@
                 android:gravity="center"
                 android:padding="5dp"
                 android:text="Profile"
-                android:textColor="@color/cardview_dark_background"
+                android:textColor="#000000"
                 android:textSize="35sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -76,6 +76,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
                 android:background="@drawable/custom_input_profile"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -96,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
                 android:background="@drawable/custom_input_profile"
                 android:ems="10"
                 android:inputType="textPersonName"
@@ -116,6 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="44dp"
                 android:layout_marginTop="10dp"
+                android:paddingStart="10dp"
                 android:background="@drawable/custom_input_profile"
                 android:clickable="true"
                 android:ems="10"

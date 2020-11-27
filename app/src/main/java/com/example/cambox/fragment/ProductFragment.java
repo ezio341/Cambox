@@ -21,6 +21,7 @@ import com.example.cambox.databinding.FragmentProductBinding;
 import com.example.cambox.interfaces.OnClickListenerProduct;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FragmentUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,14 +35,13 @@ import java.util.List;
 
 
 public class ProductFragment extends Fragment {
-    FragmentProductBinding binding;
-    User user;
+    private FragmentProductBinding binding;
+    private User user;
 
-    DatabaseReference dbRef;
-    StorageReference storageRef;
+    private DatabaseReference dbRef;
 
-    ProgressDialog progressDialog;
-    List<Product> list;
+    private ProgressDialog progressDialog;
+    private List<Product> list;
 
     public ProductFragment(User user) {
         this.user = user;
@@ -51,7 +51,6 @@ public class ProductFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbRef = FirebaseDatabase.getInstance().getReference();
-        storageRef = FirebaseStorage.getInstance().getReference();
 
         list = new ArrayList<>();
     }
@@ -81,7 +80,7 @@ public class ProductFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("user", user);
                         fragment.setArguments(bundle);
-                        getFragment(fragment);
+                        FragmentUtil.getFragment(fragment, getActivity());
                     }
                 });
                 binding.recyclerView.setAdapter(adapter);
@@ -102,10 +101,4 @@ public class ProductFragment extends Fragment {
 
     }
 
-    private void getFragment(Fragment fragment){
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
-        fragmentTransaction.commit();
-    }
 }

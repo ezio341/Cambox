@@ -14,6 +14,9 @@ import com.example.cambox.R;
 import com.example.cambox.databinding.FragmentEditProfileBinding;
 import com.example.cambox.model.Profile;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FragmentUtil;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,9 +33,9 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 public class EditProfileFragment extends Fragment {
-    FragmentEditProfileBinding binding;
-    User user;
-    DatabaseReference ref;
+    private FragmentEditProfileBinding binding;
+    private User user;
+    private DatabaseReference ref;
 
     public EditProfileFragment(User user) {
         this.user = user;
@@ -51,8 +54,13 @@ public class EditProfileFragment extends Fragment {
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Profile profile = snapshot.child("Profile").child(user.getKey()).getValue(Profile.class);
-                binding.setProfile(profile);
+                Profile p = snapshot.child("Profile").child(user.getKey()).getValue(Profile.class);
+                binding.setProfile(p);
+                if(p.getGender().equals("Male") || p.getGender().isEmpty()){
+                    binding.rbMale.setChecked(true);
+                }else{
+                    binding.rbFemale.setChecked(true);
+                }
             }
 
             @Override
@@ -66,7 +74,6 @@ public class EditProfileFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.rbMale.setChecked(true);
         binding.mDob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -90,7 +97,7 @@ public class EditProfileFragment extends Fragment {
         binding.btnEditProfileBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragment(new ProfileFragment(user));
+                FragmentUtil.getFragment(new ProfileFragment(user), getActivity());
             }
         });
         binding.rbMale.setOnClickListener(new View.OnClickListener() {
@@ -126,28 +133,17 @@ public class EditProfileFragment extends Fragment {
                 pg.setMessage("Please wait ...");
                 pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pg.show();
-                new Thread(new Runnable() {
+                ref.child("Profile").child(user.getKey()).setValue(p).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
-                    public void run() {
-                        try {
-                            ref.child("Profile").child(user.getKey()).setValue(p);
-                            Thread.sleep(2000);
-                            getFragment(new ProfileFragment(user));
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if(task.isSuccessful()){
+                            FragmentUtil.getFragment(new ProfileFragment(user), getActivity());
+                            Toast.makeText(getContext(), "Your profile has been updated!", Toast.LENGTH_SHORT);
                             pg.dismiss();
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
                         }
                     }
-                }).start();
-                Toast.makeText(getContext(), "Your profile has been updated!", Toast.LENGTH_SHORT);
+                });
             }
         });
-    }
-
-    private void getFragment(Fragment fragment){
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
-        fragmentTransaction.commit();
     }
 }

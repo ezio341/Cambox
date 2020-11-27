@@ -1,5 +1,6 @@
 package com.example.cambox.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -21,6 +22,7 @@ import com.example.cambox.databinding.FragmentViewProductBinding;
 import com.example.cambox.model.Cart;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FragmentUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,11 +34,12 @@ import java.util.List;
 
 
 public class ViewProductFragment extends Fragment {
-    FragmentViewProductBinding binding;
-    Product product;
-    Fragment backDirection;
-    DatabaseReference ref;
-    User user;
+    private FragmentViewProductBinding binding;
+    private Product product;
+    private Fragment backDirection;
+    private DatabaseReference ref;
+    private User user;
+    private ProgressDialog pg;
 
     public ViewProductFragment(Product product, Fragment fragmentDirection) {
         this.product = product;
@@ -48,6 +51,7 @@ public class ViewProductFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ref = FirebaseDatabase.getInstance().getReference();
         user = (User) getArguments().getParcelable("user");
+        pg = new ProgressDialog(getContext());
     }
 
     @Override
@@ -72,12 +76,15 @@ public class ViewProductFragment extends Fragment {
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragment(backDirection);
+                FragmentUtil.getFragment(backDirection, getActivity());
             }
         });
         binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                pg.setTitle("Adding to Your Cart");
+                pg.setMessage("Please Wait ...");
+                pg.show();
                 final Cart cart = new Cart(product, 1);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -100,6 +107,7 @@ public class ViewProductFragment extends Fragment {
                             ref.child("Cart").child(user.getKey()).setValue(cartList);
                             Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
                         }
+                        pg.dismiss();
                     }
 
                     @Override
@@ -111,12 +119,5 @@ public class ViewProductFragment extends Fragment {
 
             }
         });
-    }
-
-    private void getFragment(Fragment fragment){
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
-        fragmentTransaction.commit();
     }
 }

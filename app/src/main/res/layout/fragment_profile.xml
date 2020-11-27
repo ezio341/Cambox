@@ -15,14 +15,14 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#F5F7F8"
+        android:background="@color/backgroundColor"
         tools:context=".MainActivity">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginTop="19dp">
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="24dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -37,9 +37,10 @@
 
 
         <LinearLayout
-            android:layout_width="362dp"
+            android:layout_width="match_parent"
             android:layout_height="112dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginTop="80dp"
             android:background="#FFFFFF"
             android:orientation="horizontal">
@@ -48,9 +49,10 @@
                 android:id="@+id/imageView"
                 android:layout_width="94.68dp"
                 android:layout_height="92dp"
-                android:layout_marginLeft="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="10dp"
-                tools:srcCompat="@drawable/ic_baseline_person_24" />
+                android:src="@drawable/ic_baseline_person_24" />
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/btnEditProfile"
@@ -58,7 +60,7 @@
                 android:layout_height="match_parent">
 
                 <TextView
-                    android:id="@+id/textView3"
+                    android:id="@+id/txtProfileName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="24dp"
@@ -73,6 +75,7 @@
                 </TextView>
 
                 <TextView
+                    android:id="@+id/txtProfileAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
@@ -82,7 +85,7 @@
                     android:textColor="@color/browser_actions_title_color"
                     android:textSize="14sp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/textView3">
+                    app:layout_constraintTop_toBottomOf="@+id/txtProfileName">
 
                 </TextView>
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -90,9 +93,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="364dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginTop="220dp"
             android:background="#FFFFFF"
             android:orientation="vertical">
@@ -100,8 +104,8 @@
             <TextView
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Account Information"
                 android:textColor="#0A1034"
@@ -110,9 +114,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="364dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginTop="300dp"
             android:background="#FFFFFF"
             android:orientation="vertical">
@@ -120,8 +125,8 @@
             <TextView
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Security and Settings"
                 android:textColor="#0A1034"
@@ -130,9 +135,10 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="364dp"
+            android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginRight="24dp"
             android:layout_marginTop="380dp"
             android:background="#FFFFFF"
             android:orientation="vertical">
@@ -140,8 +146,8 @@
             <TextView
                 android:layout_width="252dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
                 android:layout_marginLeft="20dp"
+                android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
                 android:text="Help"
                 android:textColor="#0A1034"
@@ -176,7 +182,8 @@
                 android:fontFamily="@font/poppins"
                 android:onClick="logout"
                 android:text="Logout"
-                android:textColor="#282D64" />
+                android:textColor="#FFFFFF"
+                android:textStyle="bold" />
 
 
         </LinearLayout>

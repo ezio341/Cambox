@@ -20,6 +20,7 @@ import com.example.cambox.databinding.FragmentFavoriteBinding;
 import com.example.cambox.interfaces.OnClickListenerProduct;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FragmentUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,10 +32,10 @@ import java.util.List;
 
 
 public class FavoriteFragment extends Fragment {
-    User user;
-    FragmentFavoriteBinding binding;
-    List<Product> productList;
-    DatabaseReference ref;
+    private User user;
+    private FragmentFavoriteBinding binding;
+    private List<Product> productList;
+    private DatabaseReference ref;
 
     public FavoriteFragment(User user){
         this.user = user;
@@ -71,7 +72,7 @@ public class FavoriteFragment extends Fragment {
                         Bundle bundle = new Bundle();
                         bundle.putParcelable("user", user);
                         fragment.setArguments(bundle);
-                        getFragment(fragment);
+                        FragmentUtil.getFragment(fragment, getActivity());
                     }
                 });
                 binding.rvFavorite.setAdapter(adapter);
@@ -83,11 +84,5 @@ public class FavoriteFragment extends Fragment {
             }
         });
         return binding.getRoot();
-    }
-    private void getFragment(Fragment fragment){
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
-        fragmentTransaction.commit();
     }
 }

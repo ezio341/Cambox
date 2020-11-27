@@ -18,6 +18,7 @@ import com.example.cambox.R;
 import com.example.cambox.databinding.FragmentProfileBinding;
 import com.example.cambox.model.Profile;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FragmentUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -25,9 +26,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
-    DatabaseReference ref;
-    FragmentProfileBinding binding;
-    User user;
+    private DatabaseReference ref;
+    private FragmentProfileBinding binding;
+    private User user;
 
     public ProfileFragment(User user) {
         this.user = user;
@@ -61,14 +62,8 @@ public class ProfileFragment extends Fragment {
         binding.btnEditProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                getFragment(new EditProfileFragment(user));
+                FragmentUtil.getFragment(new EditProfileFragment(user), getActivity());
             }
         });
-    }
-    private void getFragment(Fragment fragment){
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
-        fragmentTransaction.commit();
     }
 }

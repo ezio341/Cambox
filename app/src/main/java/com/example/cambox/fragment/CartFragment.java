@@ -11,6 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,6 +27,7 @@ import com.example.cambox.interfaces.OnClickListenerCart;
 import com.example.cambox.model.Cart;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FragmentUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
@@ -39,11 +41,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CartFragment extends Fragment {
-    FragmentCartBinding binding;
-    User user;
-    List<Cart> cartList;
-    DatabaseReference ref;
-    CartAdapter adapter;
+    private FragmentCartBinding binding;
+    private User user;
+    private List<Cart> cartList;
+    private DatabaseReference ref;
+    private CartAdapter adapter;
 
     public CartFragment(User user) {
         this.user = user;
@@ -95,22 +97,16 @@ public class CartFragment extends Fragment {
                         pg.setMessage("Please Wait ...");
                         pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                         pg.show();
-                        new Thread(new Runnable() {
+                        DatabaseReference delRef = ref.child("Cart").child(user.getKey()).child(cart.getKey());
+                        delRef.removeValue(new DatabaseReference.CompletionListener() {
                             @Override
-                            public void run() {
-                                try {
-                                    DatabaseReference delRef = ref.child("Cart").child(user.getKey()).child(cart.getKey());
-                                    delRef.removeValue();
-                                    Thread.sleep(3000);
-                                    FragmentManager manager = getActivity().getSupportFragmentManager();
-                                    getFragment(new CartFragment(user));
-                                    pg.dismiss();
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
+                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                                FragmentManager manager = getActivity().getSupportFragmentManager();
+                                FragmentUtil.getFragment(new CartFragment(user), getActivity());
+                                Toast.makeText(getContext(), "Product "+cart.getProduct().getName()+" is removed", Toast.LENGTH_SHORT).show();
+                                pg.dismiss();
                             }
-                        }).start();
-                        Toast.makeText(getContext(), "Product "+cart.getProduct().getName()+" is removed", Toast.LENGTH_SHORT).show();
+                        });
                     }
                 });
 
@@ -127,11 +123,5 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-    }
-    private void getFragment(Fragment fragment){
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = manager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragmentContainer,fragment);
-        fragmentTransaction.commit();
     }
 }

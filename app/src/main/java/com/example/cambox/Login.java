@@ -1,6 +1,8 @@
 package com.example.cambox;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -25,9 +27,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class Login extends AppCompatActivity {
-    ActivityLoginBinding binding;
-    DatabaseReference ref;
-    User user;
+    private ActivityLoginBinding binding;
+    private DatabaseReference ref;
+    private User user;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +43,11 @@ public class Login extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                final ProgressDialog pg = new ProgressDialog(Login.this);
+                pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                pg.setTitle("Logging in");
+                pg.setMessage("Please Wait ...");
+                pg.show();
                 String email = binding.mEmail.getText().toString().trim();
                 String password = binding.mPassword.getText().toString().trim();
 
@@ -54,7 +61,6 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
-//                progressBar.setVisibility(View.VISIBLE);
 
                 user = new User(binding.mEmail.getText().toString(), binding.mPassword.getText().toString());
                 //Authenticate user
@@ -69,10 +75,8 @@ public class Login extends AppCompatActivity {
                         emaildb = data.getKey();
                         //get the password value
                         passdb = data.child("password").getValue(String.class);
-                                Log.d("key", "login pressed");
                         try {
                             if (emaildb.equals(Util.digest(user.getEmail())) && passdb.equals(user.getPassword())) {
-                                binding.progressBar2.setVisibility(View.VISIBLE);
                                 user.setKey(data.getKey());
                                 user.setName(data.child("name").getValue(String.class));
                                 user.setPhone(data.child("phone").getValue(String.class));
@@ -84,6 +88,7 @@ public class Login extends AppCompatActivity {
                             } else {
                                 Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                             }
+                            pg.dismiss();
                         }catch (NullPointerException e){
                             Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
                         }
@@ -98,9 +103,11 @@ public class Login extends AppCompatActivity {
         });
 
 
-        binding.createText.setOnClickListener(new View.OnClickListener() {
+        binding.linkRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                TextView txt = (TextView) view;
+                txt.setTextColor(Color.BLUE);
                 startActivity(new Intent(getApplicationContext(), Register.class));
                 finish();
             }

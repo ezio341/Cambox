@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7F8"
+    android:background="@color/backgroundColor"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -13,13 +13,6 @@
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:orientation="horizontal">
-
-        <ImageButton
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:background="@drawable/ic_back">
-
-        </ImageButton>
 
         <EditText
             android:id="@+id/mEmail"
@@ -34,6 +27,13 @@
             android:inputType="textEmailAddress"
             android:text="Search"
             android:textColor="@android:color/tertiary_text_light" />
+
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:background="@drawable/ic_back">
+
+        </ImageButton>
 
     </LinearLayout>
 
@@ -150,10 +150,6 @@
             android:textColor="#0A1034"
             android:textSize="18dp"></TextView>
     </LinearLayout>
-
-
-
-
 
 
 </FrameLayout>
