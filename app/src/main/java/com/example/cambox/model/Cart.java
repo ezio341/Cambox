@@ -6,7 +6,7 @@ import androidx.databinding.BaseObservable;
 import androidx.databinding.Bindable;
 
 public class Cart extends BaseObservable {
-    private Product product;
+    private String product;
     private int amount;
     private String key;
 
@@ -21,11 +21,11 @@ public class Cart extends BaseObservable {
         this.key = key;
     }
 
-    public Product getProduct() {
+    public String getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+    public void setProduct(String product) {
         this.product = product;
     }
 
@@ -39,12 +39,12 @@ public class Cart extends BaseObservable {
         notifyPropertyChanged(BR.amount);
     }
 
-    public Cart(Product product, int amount) {
+    public Cart(String product, int amount) {
         this.product = product;
         this.amount = amount;
     }
 
-    public Cart(Product product, int amount, String key) {
+    public Cart(String product, int amount, String key) {
         this.product = product;
         this.amount = amount;
         this.key = key;

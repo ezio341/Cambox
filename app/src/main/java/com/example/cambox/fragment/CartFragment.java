@@ -66,15 +66,20 @@ public class CartFragment extends Fragment {
                              Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
-        ref.child("Cart").child(user.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String user_key = user.getKey();
-                for(DataSnapshot data : snapshot.getChildren()){
-                    Cart cart = data.getValue(Cart.class);
+            public void onDataChange(@NonNull final DataSnapshot snapshot) {
+                for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
+                    Cart cart = new Cart(
+                            data.child("product").getValue(String.class),
+                            data.child("amount").getValue(Integer.class),
+                            data.getKey());
                     cartList.add(cart);
                 }
 
+                if(cartList.size() == 0){
+                    binding.emptyCartMsg.setVisibility(View.VISIBLE);
+                }
                 adapter = new CartAdapter(cartList);
                 binding.rvCart.setLayoutManager(new LinearLayoutManager(getContext()));
                 binding.rvCart.setAdapter(adapter);
@@ -101,9 +106,10 @@ public class CartFragment extends Fragment {
                         delRef.removeValue(new DatabaseReference.CompletionListener() {
                             @Override
                             public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                FragmentManager manager = getActivity().getSupportFragmentManager();
                                 FragmentUtil.getFragment(new CartFragment(user), getActivity());
-                                Toast.makeText(getContext(), "Product "+cart.getProduct().getName()+" is removed", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Product "
+                                        +snapshot.child("Item").child(cart.getProduct()).child("name").getValue(String.class)
+                                        +" is removed", Toast.LENGTH_SHORT).show();
                                 pg.dismiss();
                             }
                         });
@@ -123,5 +129,15 @@ public class CartFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.btnCheckoutCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(cartList.size() == 0){
+                    Toast.makeText(getContext(), "Your Cart is Empty!", Toast.LENGTH_SHORT).show();
+                }else {
+                    FragmentUtil.getFragment(new CheckoutFragment(user, cartList), getActivity());
+                }
+            }
+        });
     }
 }

@@ -85,7 +85,7 @@ public class ViewProductFragment extends Fragment {
                 pg.setTitle("Adding to Your Cart");
                 pg.setMessage("Please Wait ...");
                 pg.show();
-                final Cart cart = new Cart(product, 1);
+                final Cart cart = new Cart(product.getKey(), 1);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -93,17 +93,18 @@ public class ViewProductFragment extends Fragment {
                         List<Cart> cartList = new ArrayList<>();
                         for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
                             Cart dbCart = data.getValue(Cart.class);
+
                             cartList.add(dbCart);
                         }
                         for(Cart c : cartList){
-                            if(c.getProduct().getKey().equals(product.getKey())){
+                            if(c.getProduct().equals(product.getKey())){
                                 isCartAvailable = true;
                                 Toast.makeText(getContext(), "Product is already available in Cart", Toast.LENGTH_SHORT).show();
                             }
                         }
 
                         if(!isCartAvailable){
-                            cartList.add(new Cart(product, 1, ""+cartList.size()));
+                            cartList.add(new Cart(product.getKey(), 1, ""+cartList.size()));
                             ref.child("Cart").child(user.getKey()).setValue(cartList);
                             Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
                         }

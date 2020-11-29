@@ -99,4 +99,7 @@
     <string name="hello_world">Hello Square World!</string>
     <string name="title_activity_host">Host</string>
     <string name="title_activity_main2">MainActivity2</string>
+    <string-array name="payments">
+        <item>Cambox Wallet</item>
+    </string-array>
 </resources>

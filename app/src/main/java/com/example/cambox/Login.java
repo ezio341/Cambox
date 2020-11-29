@@ -47,7 +47,7 @@ public class Login extends AppCompatActivity {
                 pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pg.setTitle("Logging in");
                 pg.setMessage("Please Wait ...");
-                pg.show();
+
                 String email = binding.mEmail.getText().toString().trim();
                 String password = binding.mPassword.getText().toString().trim();
 
@@ -61,7 +61,7 @@ public class Login extends AppCompatActivity {
                     return;
                 }
 
-
+                pg.show();
                 user = new User(binding.mEmail.getText().toString(), binding.mPassword.getText().toString());
                 //Authenticate user
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -88,14 +88,15 @@ public class Login extends AppCompatActivity {
                             } else {
                                 Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                             }
-                            pg.dismiss();
                         }catch (NullPointerException e){
-                            Toast.makeText(Login.this, "Error", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
                         }
+                        pg.dismiss();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
+                        pg.dismiss();
                         Toast.makeText(getApplicationContext(), error.getMessage(), Toast.LENGTH_SHORT);
                     }
                 });

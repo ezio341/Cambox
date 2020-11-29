@@ -13,13 +13,14 @@
         android:background="@color/backgroundColor">
 
         <LinearLayout
+            android:id="@+id/linearLayout2"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginEnd="16dp"
+            android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="24dp"
             android:orientation="vertical"
-            app:layout_constraintBottom_toTopOf="@+id/btnCheckout"
+            app:layout_constraintBottom_toTopOf="@+id/btnCheckoutCart"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
@@ -34,21 +35,43 @@
                 android:textColor="#0A1034"
                 android:textSize="32dp"></TextView>
 
+            <LinearLayout
+                android:id="@+id/emptyCartMsg"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Your Cart is Empty"
+                    android:textColor="#494747"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCart"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp" />
+                android:layout_marginTop="16dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/btnCheckout"
+            android:id="@+id/btnCheckoutCart"
             android:layout_width="334dp"
             android:layout_height="55dp"
             android:layout_marginBottom="80dp"
-            android:background="#A1A2FF"
-            android:elevation="10dp"
+            android:background="@drawable/custom_input"
+            android:elevation="4dp"
             android:gravity="center"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
