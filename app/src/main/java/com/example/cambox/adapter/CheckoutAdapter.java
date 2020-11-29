@@ -1,5 +1,6 @@
 package com.example.cambox.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -44,7 +45,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter <CheckoutAdapter.Check
 
     @Override
     public int getItemCount() {
-        return cartlist.size() > 0 ? cartlist.size():0;
+        return cartlist != null ? cartlist.size():0;
     }
 
     public class CheckoutViewHolder extends RecyclerView.ViewHolder {

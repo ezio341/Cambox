@@ -15,8 +15,10 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="180dp"
         android:layout_height="260dp"
+        android:layout_margin="4dp"
         android:background="#FFFFFF"
-        android:elevation="4dp">
+        android:elevation="4dp"
+        tools:background="@drawable/item_background">
 
         <ImageButton
             android:id="@+id/btnDelProd"

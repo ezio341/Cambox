@@ -18,7 +18,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
-        android:background="@drawable/custom_input_profile"
+        android:layout_margin="4dp"
+        android:background="@drawable/item_background"
         android:elevation="4dp">
 
         <ImageButton

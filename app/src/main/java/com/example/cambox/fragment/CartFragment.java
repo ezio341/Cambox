@@ -136,6 +136,7 @@ public class CartFragment extends Fragment {
                     Toast.makeText(getContext(), "Your Cart is Empty!", Toast.LENGTH_SHORT).show();
                 }else {
                     FragmentUtil.getFragment(new CheckoutFragment(user, cartList), getActivity());
+                    Log.d("size list", cartList.size()+"");
                 }
             }
         });

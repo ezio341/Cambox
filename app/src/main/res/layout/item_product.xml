@@ -16,7 +16,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="180dp"
         android:layout_height="250dp"
-        android:background="#FFFFFF"
+        android:layout_margin="4dp"
+        android:background="@drawable/item_background"
         android:elevation="4dp"
         android:onClick="@{()->listener.onclick(product)}">
 

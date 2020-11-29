@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +54,7 @@ public class CheckoutFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkout, container, false);
         CheckoutAdapter adapter = new CheckoutAdapter(cartList);
-        binding.rvCheckout.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.rvCheckout.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvCheckout.setAdapter(adapter);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
@@ -84,6 +85,6 @@ public class CheckoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        
+
     }
 }
