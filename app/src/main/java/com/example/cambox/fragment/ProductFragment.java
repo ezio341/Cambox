@@ -49,7 +49,7 @@ public class ProductFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         dbRef = FirebaseDatabase.getInstance().getReference();
-
+        pg = new ProgressDialog(getContext());
         list = new ArrayList<>();
     }
 
@@ -57,9 +57,6 @@ public class ProductFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        pg = new ProgressDialog(getContext());
-        pg.setMessage("Loading");
-        pg.show();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product, container, false);
 
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {

@@ -136,6 +136,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnDeleteAccount"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="24dp"
@@ -150,7 +151,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginTop="15dp"
                 android:fontFamily="@font/poppins_medium"
-                android:text="Help"
+                android:text="Delete Your Account"
                 android:textColor="#0A1034"
                 android:textSize="18dp"></TextView>
 

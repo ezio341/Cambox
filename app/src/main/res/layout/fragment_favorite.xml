@@ -38,10 +38,32 @@
             android:layout_marginTop="80dp"
             android:orientation="vertical">
 
+            <LinearLayout
+                android:id="@+id/emptyMsgFavorite"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/txtEmptyMsgFavorite"
+                    android:layout_width="292dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="Your Favorite Product is Empty"
+                    android:textColor="#757575"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvFavorite"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                tools:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                tools:listitem="@layout/item_product"
+                tools:spanCount="2" />
         </LinearLayout>
     </FrameLayout>
 </layout>

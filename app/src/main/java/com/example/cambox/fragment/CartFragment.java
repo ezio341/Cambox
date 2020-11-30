@@ -46,6 +46,7 @@ public class CartFragment extends Fragment {
     private List<Cart> cartList;
     private DatabaseReference ref;
     private CartAdapter adapter;
+    private ProgressDialog pg;
 
     public CartFragment(User user) {
         this.user = user;
@@ -59,6 +60,7 @@ public class CartFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ref = FirebaseDatabase.getInstance().getReference();
         cartList = new ArrayList<>();
+        pg = new ProgressDialog(getContext());
     }
 
     @Override
@@ -76,7 +78,6 @@ public class CartFragment extends Fragment {
                             data.getKey());
                     cartList.add(cart);
                 }
-
                 if(cartList.size() == 0){
                     binding.emptyCartMsg.setVisibility(View.VISIBLE);
                 }
@@ -135,8 +136,26 @@ public class CartFragment extends Fragment {
                 if(cartList.size() == 0){
                     Toast.makeText(getContext(), "Your Cart is Empty!", Toast.LENGTH_SHORT).show();
                 }else {
-                    FragmentUtil.getFragment(new CheckoutFragment(user, cartList), getActivity());
-                    Log.d("size list", cartList.size()+"");
+                    pg.setMessage("Loading ...");
+                    pg.show();
+                    ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            if(!snapshot.child("Profile").child(user.getKey()).child("address").getValue(String.class)
+                                    .equals("address not set")){
+                                FragmentUtil.getFragment(new CheckoutFragment(user, cartList), getActivity());
+                                Log.d("size list", cartList.size()+"");
+                            }else{
+                                Toast.makeText(getContext(), "Please Edit Your Profile First!", Toast.LENGTH_SHORT).show();
+                            }
+                            pg.dismiss();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
             }
         });

@@ -16,6 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.cambox.databinding.ActivityRegisterBinding;
 import com.example.cambox.model.Profile;
 import com.example.cambox.model.User;
+import com.example.cambox.model.Wallet;
 import com.example.cambox.util.SecurityUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -81,8 +82,12 @@ public class Register extends AppCompatActivity {
                                 pg.dismiss();
                                 return;
                             }else{
-                                ref.child("Account").child(SecurityUtil.digest(binding.mRegEmail.getText().toString())).setValue(user)
-                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                ref.child("Wallet").child(SecurityUtil.digest(binding.mRegEmail.getText().toString()))
+                                        .setValue(new Wallet(1000000000));
+                                ref.child("Profile").child(SecurityUtil.digest(binding.mRegEmail.getText().toString()))
+                                        .setValue(new Profile(binding.mUsername.getText().toString()));
+                                ref.child("Account").child(SecurityUtil.digest(binding.mRegEmail.getText().toString()))
+                                        .setValue(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
                                             ref.child("Profile").child(user.getKey()).setValue(p);

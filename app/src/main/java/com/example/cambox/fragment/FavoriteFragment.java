@@ -68,6 +68,9 @@ public class FavoriteFragment extends Fragment {
                     Product p = snapshot.child("Item").child(i.getKey()).getValue(Product.class);
                     productList.add(p);
                 }
+                if(productList.size()==0){
+                    binding.emptyMsgFavorite.setVisibility(View.VISIBLE);
+                }
                 ProductAdapter adapter = new ProductAdapter(productList, user);
                 adapter.setListener(new OnClickListenerProduct() {
                     @Override
@@ -102,5 +105,11 @@ public class FavoriteFragment extends Fragment {
             }
         });
         return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 }

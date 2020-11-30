@@ -1,8 +1,5 @@
 package com.example.cambox.model;
 
-import com.google.firebase.database.IgnoreExtraProperties;
-
-@IgnoreExtraProperties
 public class Profile {
     String name;
     String address;
@@ -14,6 +11,9 @@ public class Profile {
 
     public Profile(String name) {
         this.name = name;
+        address = "address not set";
+        dob = "date not set";
+        gender = "Male";
     }
 
     public Profile(String name, String address, String dob, String gender) {
