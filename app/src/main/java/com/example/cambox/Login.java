@@ -53,7 +53,7 @@ public class Login extends AppCompatActivity {
                 }
 
                 if(TextUtils.isEmpty(password)){
-                    binding.mPassword.setError("Email is Required");
+                    binding.mPassword.setError("Password is Required");
                     return;
                 }
 

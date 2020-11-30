@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -75,61 +76,99 @@ public class ViewProductFragment extends Fragment {
                 Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imgProduct);
             }
         });
+        ref.child("Favorite").child(user.getKey()).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(product.getKey()).exists()){
+                    binding.btnFavoriteProduct.setImageResource(R.drawable.ic_baseline_favorite_pink_24);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         return binding.getRoot();
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 FragmentUtil.getFragment(backDirection, getActivity());
             }
         });
-        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+        binding.btnFavoriteProduct.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                pg.setTitle("Adding to Your Cart");
-                pg.setMessage("Please Wait ...");
-                pg.show();
+            public void onClick(final View v) {
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        boolean isCartAvailable = false;
-                        List<Cart> cartList = new ArrayList<>();
-                        for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
-                            Cart dbCart = data.getValue(Cart.class);
-
-                            cartList.add(dbCart);
+                        if(snapshot.child("Favorite").child(user.getKey()).child(product.getKey()).exists()){
+                            ref.child("Favorite").child(user.getKey()).child(product.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    binding.btnFavoriteProduct.setImageResource(R.drawable.ic_baseline_favorite_border_24);
+                                }
+                            });
+                        }else{
+                            ref.child("Favorite").child(user.getKey()).child(product.getKey()).setValue(product.getKey()).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    binding.btnFavoriteProduct.setImageResource(R.drawable.ic_baseline_favorite_pink_24);
+                                }
+                            });
                         }
-                        for(Cart c : cartList){
-                            if(c.getProduct().equals(product.getKey())){
-                                isCartAvailable = true;
-                                Toast.makeText(getContext(), "Product is already available in Cart", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-
-                        if(!isCartAvailable){
-                            cartList.add(new Cart(product.getKey(), 1, ""+cartList.size()));
-                            ref.child("Cart").child(user.getKey()).setValue(cartList);
-                            Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
-                        }
-                        pg.dismiss();
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-                        Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+
+                    }
+                });
+            }
+        });
+
+        binding.btnAddToCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            pg.setTitle("Adding to Your Cart");
+            pg.setMessage("Please Wait ...");
+            pg.show();
+            ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    boolean isCartAvailable = false;
+                    List<Cart> cartList = new ArrayList<>();
+                    for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
+                        Cart dbCart = data.getValue(Cart.class);
+
+                        cartList.add(dbCart);
+                    }
+                    for(Cart c : cartList){
+                        if(c.getProduct().equals(product.getKey())){
+                            isCartAvailable = true;
+                            Toast.makeText(getContext(), "Product is already available in Cart", Toast.LENGTH_SHORT).show();
+                        }
                     }
 
-                });
+                    if(!isCartAvailable){
+                        cartList.add(new Cart(product.getKey(), 1, ""+cartList.size()));
+                        ref.child("Cart").child(user.getKey()).setValue(cartList);
+                        Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
+                    }
+                    pg.dismiss();
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+                    Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+
+            });
 
             }
         });

@@ -58,6 +58,8 @@ public class FavoriteFragment extends Fragment {
     @Override
     public View onCreateView(final LayoutInflater inflater, ViewGroup container,
                              final Bundle savedInstanceState) {
+        pg.setMessage("Loading ...");
+        pg.show();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
         // Inflate the layout for this fragment
         binding.rvFavorite.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -97,6 +99,7 @@ public class FavoriteFragment extends Fragment {
 
                 });
                 binding.rvFavorite.setAdapter(adapter);
+                pg.dismiss();
             }
 
             @Override

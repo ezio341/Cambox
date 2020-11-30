@@ -66,6 +66,8 @@ public class CartFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        pg.setMessage("Loading ...");
+        pg.show();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -116,7 +118,7 @@ public class CartFragment extends Fragment {
                         });
                     }
                 });
-
+                pg.dismiss();
             }
 
             @Override
@@ -160,4 +162,5 @@ public class CartFragment extends Fragment {
             }
         });
     }
+
 }

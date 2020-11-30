@@ -56,9 +56,11 @@ public class ProductFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        pg.setMessage("Loading ...");
+        pg.show();
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product, container, false);
-
+        //firebase single listener
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
@@ -67,19 +69,41 @@ public class ProductFragment extends Fragment {
                     list.add(products);
                 }
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-                ProductAdapter adapter = new ProductAdapter(list, user);
-                adapter.setListener(new OnClickListenerProduct() {
-                    @Override
-                    public void onclick(Product product) {
-                        ViewProductFragment fragment = new ViewProductFragment(product, ProductFragment.this);
-                        Bundle bundle = new Bundle();
-                        bundle.putParcelable("user", user);
-                        fragment.setArguments(bundle);
-                        FragmentUtil.getFragment(fragment, getActivity());
-                    }
+                final ProductAdapter adapter = new ProductAdapter(list, user);
 
+                adapter.setListener(getListener());
+                binding.recyclerView.setAdapter(adapter);
+                pg.dismiss();
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        });
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+    }
+
+
+    //Onclick listener for each item
+    public OnClickListenerProduct getListener(){
+        return new OnClickListenerProduct() {
+            @Override
+            public void onclick(Product product) {
+                ViewProductFragment fragment = new ViewProductFragment(product, ProductFragment.this);
+                Bundle bundle = new Bundle();
+                bundle.putParcelable("user", user);
+                fragment.setArguments(bundle);
+                FragmentUtil.getFragment(fragment, getActivity());
+            }
+
+            @Override
+            public void onClickFavorite(final Product product, final ImageButton btn) {
+                dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onClickFavorite(Product product, final ImageButton btn) {
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if(snapshot.child("Favorite").child(user.getKey()).child(product.getKey()).exists()){
                             dbRef.child("Favorite").child(user.getKey()).child(product.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
@@ -96,23 +120,14 @@ public class ProductFragment extends Fragment {
                             });
                         }
                     }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
                 });
-                binding.recyclerView.setAdapter(adapter);
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        pg.dismiss();
-
+        };
     }
 
 }

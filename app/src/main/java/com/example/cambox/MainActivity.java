@@ -19,10 +19,13 @@ import com.example.cambox.fragment.OrderFragment;
 import com.example.cambox.fragment.ProductFragment;
 import com.example.cambox.fragment.ProfileFragment;
 import com.example.cambox.model.User;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class MainActivity extends AppCompatActivity {
+    private FirebaseAuth auth;
     private static final int TIME_DELAY = 2000;
     private static long back_pressed;
     private BottomNavigationView bottom_view;
@@ -65,6 +68,18 @@ public class MainActivity extends AppCompatActivity {
 
     public User getUser() {
         return user;
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        auth = FirebaseAuth.getInstance();
+        auth.signInWithEmailAndPassword("user@gmail.com", "user12345").addOnSuccessListener(new OnSuccessListener<AuthResult>() {
+            @Override
+            public void onSuccess(AuthResult authResult) {
+                Toast.makeText(getApplicationContext(), "client connected", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override

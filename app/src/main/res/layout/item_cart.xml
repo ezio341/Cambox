@@ -41,11 +41,11 @@
             android:id="@+id/btnCartAdd"
             android:layout_width="30dp"
             android:layout_height="31dp"
-            android:layout_marginEnd="130dp"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
             android:background="@drawable/round_button"
             android:onClick="@{()->listener.setAmount(cart, cart.amount +1, btnCartAdd, btnCartRemove)}"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/textView11"
             app:layout_constraintTop_toBottomOf="@+id/textView13"
             app:srcCompat="@drawable/ic_baseline_add_24" />
 
@@ -101,9 +101,9 @@
             android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
             android:layout_marginTop="12dp"
             android:text="@{String.valueOf(cart.amount)}"
-            app:layout_constraintEnd_toStartOf="@+id/btnCartAdd"
             app:layout_constraintStart_toEndOf="@+id/btnCartRemove"
             app:layout_constraintTop_toBottomOf="@+id/textView13" />
 
