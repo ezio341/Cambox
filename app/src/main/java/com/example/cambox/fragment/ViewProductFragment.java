@@ -1,6 +1,7 @@
 package com.example.cambox.fragment;
 
 import android.app.ProgressDialog;
+import android.net.Uri;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -22,12 +23,16 @@ import com.example.cambox.databinding.FragmentViewProductBinding;
 import com.example.cambox.model.Cart;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
+import com.example.cambox.util.FormatUtil;
 import com.example.cambox.util.FragmentUtil;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +45,7 @@ public class ViewProductFragment extends Fragment {
     private DatabaseReference ref;
     private User user;
     private ProgressDialog pg;
+    private StorageReference stg;
 
     public ViewProductFragment(Product product, Fragment fragmentDirection) {
         this.product = product;
@@ -52,6 +58,7 @@ public class ViewProductFragment extends Fragment {
         ref = FirebaseDatabase.getInstance().getReference();
         user = (User) getArguments().getParcelable("user");
         pg = new ProgressDialog(getContext());
+        stg = FirebaseStorage.getInstance().getReference();
     }
 
     @Override
@@ -60,7 +67,14 @@ public class ViewProductFragment extends Fragment {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_product, container, false);
         binding.setProduct(product);
-        Glide.with(binding.getRoot().getContext()).load(product.getImg_token()).into(binding.imgProduct);
+        binding.setCurrencyformat(FormatUtil.getCurrencyFormat());
+        binding.imgProduct.setImageResource(R.drawable.ic_baseline_cached_24);
+        stg.child("item_image/"+product.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            @Override
+            public void onSuccess(Uri uri) {
+                Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imgProduct);
+            }
+        });
         return binding.getRoot();
     }
 
@@ -85,7 +99,6 @@ public class ViewProductFragment extends Fragment {
                 pg.setTitle("Adding to Your Cart");
                 pg.setMessage("Please Wait ...");
                 pg.show();
-                final Cart cart = new Cart(product.getKey(), 1);
                 ref.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {

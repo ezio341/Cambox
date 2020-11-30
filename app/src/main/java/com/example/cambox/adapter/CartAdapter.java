@@ -1,19 +1,25 @@
 package com.example.cambox.adapter;
 
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
+import com.example.cambox.R;
 import com.example.cambox.databinding.ItemCartBinding;
 import com.example.cambox.interfaces.OnClickListenerCart;
 import com.example.cambox.model.Cart;
 import com.example.cambox.model.Product;
+import com.example.cambox.util.FormatUtil;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.List;
 
@@ -24,10 +30,12 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     List<Cart> cartlist;
     OnClickListenerCart listener;
     DatabaseReference ref;
+    StorageReference stg;
 
     public CartAdapter(List<Cart> cartlist) {
         this.cartlist = cartlist;
         ref = FirebaseDatabase.getInstance().getReference();
+        stg = FirebaseStorage.getInstance().getReference();
     }
 
     public void setListener(OnClickListenerCart listener) {
@@ -62,11 +70,17 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         }
 
         public void bind(final Cart cart){
+            binding.imageView3.setImageResource(R.drawable.ic_baseline_cached_24);
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     Product p = snapshot.child("Item").child(cart.getProduct()).getValue(Product.class);
-                    Glide.with(binding.getRoot().getContext()).load(p.getImg_token()).into(binding.imageView3);
+                    stg.child("item_image/"+p.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imageView3);
+                        }
+                    });
                     binding.setProduct(p);
                 }
 
@@ -75,6 +89,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
                 }
             });
+            binding.setCurrencyformat(FormatUtil.getCurrencyFormat());
             binding.setCart(cart);
             binding.setListener(listener);
             binding.executePendingBindings();

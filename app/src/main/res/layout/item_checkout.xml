@@ -10,6 +10,9 @@
         <variable
             name="product"
             type="com.example.cambox.model.Product" />
+        <variable
+            name="currencyformat"
+            type="java.text.DecimalFormat" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -20,20 +23,10 @@
         android:elevation="4dp"
         tools:background="@drawable/item_background">
 
-        <ImageButton
-            android:id="@+id/btnDelProd"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_marginEnd="4dp"
-            android:layout_marginTop="4dp"
-            android:src="@drawable/ic_baseline_delete_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <ImageView
             android:id="@+id/imgCktProduct"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="130dp"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             android:layout_marginTop="36dp"
@@ -43,24 +36,14 @@
             tools:srcCompat="@tools:sample/avatars" />
 
         <TextView
-            android:id="@+id/textView15"
+            android:id="@+id/txtProdPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="Rp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txtCktprodtitle" />
-
-        <TextView
-            android:id="@+id/txtProdPrice"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:text="@{String.valueOf(product.price)}"
+            android:text="@{currencyformat.format(product.price)}"
             android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView15"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtCktprodtitle" />
 
         <TextView

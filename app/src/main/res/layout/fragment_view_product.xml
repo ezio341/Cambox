@@ -7,6 +7,9 @@
         <variable
             name="product"
             type="com.example.cambox.model.Product" />
+        <variable
+            name="currencyformat"
+            type="java.text.DecimalFormat" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -109,23 +112,11 @@
             android:id="@+id/txtViewPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
-            android:text="@{String.valueOf(product.price)}"
-            android:textColor="#000000"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toEndOf="@+id/textView9"
-            app:layout_constraintTop_toBottomOf="@+id/imgProduct" />
-
-        <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginTop="16dp"
-            android:text="Rp"
+            android:text="@{currencyformat.format(product.price)}"
             android:textColor="#000000"
+            android:textSize="14sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgProduct" />

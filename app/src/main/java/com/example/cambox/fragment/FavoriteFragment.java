@@ -1,5 +1,6 @@
 package com.example.cambox.fragment;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.cambox.R;
 import com.example.cambox.adapter.ProductAdapter;
@@ -21,6 +23,7 @@ import com.example.cambox.interfaces.OnClickListenerProduct;
 import com.example.cambox.model.Product;
 import com.example.cambox.model.User;
 import com.example.cambox.util.FragmentUtil;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -36,6 +39,7 @@ public class FavoriteFragment extends Fragment {
     private FragmentFavoriteBinding binding;
     private List<Product> productList;
     private DatabaseReference ref;
+    private ProgressDialog pg;
 
     public FavoriteFragment(User user){
         this.user = user;
@@ -48,6 +52,7 @@ public class FavoriteFragment extends Fragment {
         super.onCreate(savedInstanceState);
         ref = FirebaseDatabase.getInstance().getReference();
         this.productList = new ArrayList<>();
+        pg = new ProgressDialog(getContext());
     }
 
     @Override
@@ -55,16 +60,15 @@ public class FavoriteFragment extends Fragment {
                              final Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
         // Inflate the layout for this fragment
-
         binding.rvFavorite.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        ref.addValueEventListener(new ValueEventListener() {
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
+            public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 for(final DataSnapshot i:snapshot.child("Favorite").child(user.getKey()).getChildren()){
                     Product p = snapshot.child("Item").child(i.getKey()).getValue(Product.class);
                     productList.add(p);
                 }
-                ProductAdapter adapter = new ProductAdapter(productList);
+                ProductAdapter adapter = new ProductAdapter(productList, user);
                 adapter.setListener(new OnClickListenerProduct() {
                     @Override
                     public void onclick(Product product) {
@@ -74,6 +78,20 @@ public class FavoriteFragment extends Fragment {
                         fragment.setArguments(bundle);
                         FragmentUtil.getFragment(fragment, getActivity());
                     }
+
+                    @Override
+                    public void onClickFavorite(Product product, ImageButton btn) {
+                        pg.setMessage("Please Wait ...");
+                        pg.show();
+                        ref.child("Favorite").child(user.getKey()).child(product.getKey()).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                FragmentUtil.getFragment(new FavoriteFragment(user), getActivity());
+                                pg.dismiss();
+                            }
+                        });
+                    }
+
                 });
                 binding.rvFavorite.setAdapter(adapter);
             }

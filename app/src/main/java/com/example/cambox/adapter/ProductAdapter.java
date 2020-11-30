@@ -1,10 +1,7 @@
 package com.example.cambox.adapter;
 
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
@@ -12,9 +9,14 @@ import com.example.cambox.R;
 import com.example.cambox.databinding.ItemProductBinding;
 import com.example.cambox.interfaces.OnClickListenerProduct;
 import com.example.cambox.model.Product;
-import com.google.firebase.auth.FirebaseAuth;
+import com.example.cambox.model.User;
+import com.example.cambox.util.FormatUtil;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
@@ -25,9 +27,15 @@ import androidx.recyclerview.widget.RecyclerView;
 public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductViewHolder> {
     private List<Product> list;
     private OnClickListenerProduct listener;
+    private StorageReference stg;
+    private DatabaseReference ref;
+    private User user;
 
-    public ProductAdapter(List<Product> list) {
+    public ProductAdapter(List<Product> list, User user) {
         this.list = list;
+        stg = FirebaseStorage.getInstance().getReference();
+        ref = FirebaseDatabase.getInstance().getReference();
+        this.user = user;
     }
 
     public void setListener(OnClickListenerProduct listener) {
@@ -64,11 +72,33 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
             super(binding.getRoot());
             this.binding = binding;
         }
-        public void bind(Product product){
-            Glide.with(binding.getRoot().getContext()).load(product.getImg_token()).into(binding.imageView2);
+        public void bind(final Product product){
+//            Log.d("download url", stg.child("item_image").getDownloadUrl().toString());
+            binding.imageView2.setImageResource(R.drawable.ic_baseline_cached_24);
+            stg.child("item_image/nikon_1532_d3300_dslr_camera.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                @Override
+                public void onSuccess(Uri uri) {
+                    Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imageView2);
+                }
+            });
+            ref.child("Favorite").child(user.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    if(snapshot.child(product.getKey()).exists()){
+                        binding.imageButton.setImageResource(R.drawable.ic_baseline_favorite_pink_24);
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+            binding.setPriceformat(FormatUtil.getCurrencyFormat());
             binding.setProduct(product);
             binding.setListener(listener);
             binding.executePendingBindings();
         }
+
     }
 }

@@ -22,6 +22,8 @@ import com.example.cambox.model.Courier;
 import com.example.cambox.model.Profile;
 import com.example.cambox.model.User;
 import com.example.cambox.model.Wallet;
+import com.example.cambox.util.FormatUtil;
+import com.example.cambox.util.FragmentUtil;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -53,6 +55,7 @@ public class CheckoutFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_checkout, container, false);
+        binding.setCurrencyformat(FormatUtil.getCurrencyFormat());
         CheckoutAdapter adapter = new CheckoutAdapter(cartList);
         binding.rvCheckout.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvCheckout.setAdapter(adapter);
@@ -85,6 +88,11 @@ public class CheckoutFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
+        binding.btnBackCkt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.getFragment(new CartFragment(user), getActivity());
+            }
+        });
     }
 }

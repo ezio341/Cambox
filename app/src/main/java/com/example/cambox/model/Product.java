@@ -4,29 +4,19 @@ public class Product {
     String name;
     String desc;
     String img;
-    String img_token;
     int price;
     String product_date;
-    String stock;
-    String discount;
+    int stock;
+    double discount;
     String key;
-
-    public String getImg_token() {
-        return img_token;
-    }
-
-    public void setImg_token(String img_token) {
-        this.img_token = img_token;
-    }
 
     public Product() {
     }
 
-    public Product(String name, String desc, String img, String img_token, int price, String product_date, String stock, String discount, String key) {
+    public Product(String name, String desc, String img, int price, String product_date, int stock, double discount, String key) {
         this.name = name;
         this.desc = desc;
         this.img = img;
-        this.img_token = img_token;
         this.price = price;
         this.product_date = product_date;
         this.stock = stock;
@@ -74,19 +64,19 @@ public class Product {
         this.product_date = product_date;
     }
 
-    public String getStock() {
+    public int getStock() {
         return stock;
     }
 
-    public void setStock(String stock) {
+    public void setStock(int stock) {
         this.stock = stock;
     }
 
-    public String getDiscount() {
+    public double getDiscount() {
         return discount;
     }
 
-    public void setDiscount(String discount) {
+    public void setDiscount(double discount) {
         this.discount = discount;
     }
 

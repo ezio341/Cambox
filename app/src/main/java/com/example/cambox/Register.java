@@ -4,13 +4,8 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Looper;
 import android.text.TextUtils;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,7 +16,7 @@ import androidx.databinding.DataBindingUtil;
 import com.example.cambox.databinding.ActivityRegisterBinding;
 import com.example.cambox.model.Profile;
 import com.example.cambox.model.User;
-import com.example.cambox.util.Util;
+import com.example.cambox.util.SecurityUtil;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
@@ -76,17 +71,17 @@ public class Register extends AppCompatActivity {
                     user = new User(binding.mRegEmail.getText().toString(), binding.mUsername.getText().toString()
                             , binding.mRegPassword.getText().toString(), binding.mPhone.getText().toString());
                     final Profile p = new Profile(binding.mUsername.getText().toString());
-                    user.setKey(Util.digest(binding.mRegEmail.getText().toString()));
+                    user.setKey(SecurityUtil.digest(binding.mRegEmail.getText().toString()));
 
                     ref.child("Account").addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(snapshot.child(Util.digest(binding.mRegEmail.getText().toString())).exists()){
+                            if(snapshot.child(SecurityUtil.digest(binding.mRegEmail.getText().toString())).exists()){
                                 binding.mRegEmail.setError("Email already exist");
                                 pg.dismiss();
                                 return;
                             }else{
-                                ref.child("Account").child(Util.digest(binding.mRegEmail.getText().toString())).setValue(user)
+                                ref.child("Account").child(SecurityUtil.digest(binding.mRegEmail.getText().toString())).setValue(user)
                                     .addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {

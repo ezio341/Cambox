@@ -323,7 +323,7 @@
                                 <PersistentState>
                                   <option name="values">
                                     <map>
-                                      <entry key="url" value="file:/D:/Android/Sdk/icons/material/materialicons/person/baseline_person_24.xml" />
+                                      <entry key="url" value="file:/D:/Android/Sdk/icons/material/materialicons/cached/baseline_cached_24.xml" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -333,8 +333,8 @@
                         </option>
                         <option name="values">
                           <map>
-                            <entry key="color" value="a1a2ff" />
-                            <entry key="outputName" value="ic_input_name" />
+                            <entry key="color" value="c6c5c7" />
+                            <entry key="outputName" value="ic_baseline_cached_24" />
                             <entry key="sourceFile" value="D:\POLYTHECNIC\SEMESTER 5\Proyek\CamBox" />
                           </map>
                         </option>
