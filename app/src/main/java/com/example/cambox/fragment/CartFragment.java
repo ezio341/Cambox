@@ -70,6 +70,12 @@ public class CartFragment extends Fragment {
         pg.show();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
@@ -126,12 +132,6 @@ public class CartFragment extends Fragment {
                 Toast.makeText(getContext(), error.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         binding.btnCheckoutCart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

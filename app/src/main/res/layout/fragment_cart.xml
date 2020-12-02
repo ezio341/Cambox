@@ -26,7 +26,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
-                android:layout_marginTop="0dp"
                 android:fontFamily="@font/poppins_bold"
                 android:text="Cart"
                 android:textColor="#0A1034"
@@ -70,8 +69,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvCart"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="16dp">
+                android:layout_height="match_parent">
 
             </androidx.recyclerview.widget.RecyclerView>
 

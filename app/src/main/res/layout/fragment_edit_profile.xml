@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <data>
         <variable
@@ -8,9 +10,12 @@
         <variable
             name="frag"
             type="com.example.cambox.fragment.EditProfileFragment" />
+        <variable
+            name="user"
+            type="com.example.cambox.model.User" />
     </data>
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/editprofilelayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,9 +25,11 @@
             android:id="@+id/headereditprofile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="0dp"
-            android:orientation="horizontal">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <Button
                 android:id="@+id/btnEditProfileBack"
@@ -47,141 +54,174 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/form_layout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/headereditprofile"
-            android:layout_marginBottom="100dp"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="17dp"
-            android:orientation="vertical"
-            android:padding="20dp">
+        <ScrollView
+            android:id="@+id/constraintLayout"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="80dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/headereditprofile">
 
-
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:text="Name"
-                android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/mName"
+            <LinearLayout
+                android:id="@+id/form_layout"
                 android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:background="@drawable/custom_input_profile"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@{profile.name}" />
+                android:layout_height="0dp"
+                android:orientation="vertical"
+                android:padding="10dp">
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:text="Address"
-                android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
 
-            <EditText
-                android:id="@+id/mAddress"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:background="@drawable/custom_input_profile"
-                android:ems="10"
-                android:inputType="textPersonName"
-                android:text="@{profile.address}" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:padding="5dp"
+                    android:text="Name"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:text="Date Of Birth"
-                android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/mName"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_input_profile"
+                    android:elevation="5dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingStart="10dp"
+                    android:text="@{profile.name}" />
 
-            <EditText
-                android:id="@+id/mDob"
-                android:layout_width="match_parent"
-                android:layout_height="44dp"
-                android:layout_marginTop="10dp"
-                android:paddingStart="10dp"
-                android:background="@drawable/custom_input_profile"
-                android:clickable="true"
-                android:ems="10"
-                android:focusable="false"
-                android:inputType="number"
-                android:text="@{profile.dob}" />
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:padding="5dp"
+                    android:text="Address"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/textView16"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false"
-                android:padding="5dp"
-                android:text="Gender"
-                android:textColor="@color/design_default_color_on_secondary"
-                android:textSize="18dp"
-                android:textStyle="bold" />
+                <EditText
+                    android:id="@+id/mAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_input_profile"
+                    android:elevation="5dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingStart="10dp"
+                    android:text="@{profile.address}" />
 
-            <RadioGroup
-                android:layout_width="wrap_content"
-                android:layout_height="62dp"
-                android:background="@drawable/custom_input_profile">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:padding="5dp"
+                    android:text="Date Of Birth"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
 
-                <LinearLayout
+                <EditText
+                    android:id="@+id/mDob"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_input_profile"
+                    android:clickable="true"
+                    android:elevation="5dp"
+                    android:ems="10"
+                    android:focusable="false"
+                    android:inputType="number"
+                    android:paddingStart="10dp"
+                    android:text="@{profile.dob}" />
+
+                <TextView
+                    android:id="@+id/textView28"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:padding="5dp"
+                    android:text="Phone"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/mEditPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="44dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_input_profile"
+                    android:elevation="5dp"
+                    android:ems="10"
+                    android:inputType="textPersonName"
+                    android:paddingStart="10dp"
+                    android:text="@{user.phone}" />
+
+                <TextView
+                    android:id="@+id/textView16"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:baselineAligned="false"
+                    android:padding="5dp"
+                    android:text="Gender"
+                    android:textColor="@color/design_default_color_on_secondary"
+                    android:textSize="18dp"
+                    android:textStyle="bold" />
+
+                <RadioGroup
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
+                    android:layout_height="62dp"
+                    android:layout_margin="10dp"
+                    android:background="@drawable/custom_input_profile"
+                    android:elevation="5dp">
 
-                    <RadioButton
-                        android:id="@+id/rbMale"
+                    <LinearLayout
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="15dp"
-                        android:text="Male" />
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
 
-                    <RadioButton
-                        android:id="@+id/rbFemale"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="20dp"
-                        android:layout_marginStart="20dp"
-                        android:layout_marginTop="15dp"
-                        android:text="Female" />
-                </LinearLayout>
+                        <RadioButton
+                            android:id="@+id/rbMale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Male" />
 
-            </RadioGroup>
+                        <RadioButton
+                            android:id="@+id/rbFemale"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="20dp"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginTop="15dp"
+                            android:text="Female" />
+                    </LinearLayout>
 
-            <Button
-                android:id="@+id/btnUpdateProfile"
-                android:layout_width="124dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="120dp"
-                android:layout_marginTop="30dp"
-                android:background="#2196F3"
-                android:fontFamily="@font/poppins"
-                android:text="Update"
-                android:textColor="#FEFEFF"
-                android:textStyle="bold" />
+                </RadioGroup>
+
+                <Button
+                    android:id="@+id/btnUpdateProfile"
+                    android:layout_width="124dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="30dp"
+                    android:background="#2196F3"
+                    android:fontFamily="@font/poppins"
+                    android:text="Update"
+                    android:textColor="#FEFEFF"
+                    android:textStyle="bold" />
 
 
-        </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
 
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

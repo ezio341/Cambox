@@ -21,6 +21,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.HashMap;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -68,14 +69,16 @@ public class CheckoutAdapter extends RecyclerView.Adapter <CheckoutAdapter.Check
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    final Product p = snapshot.child("Item").child(cart.getProduct()).getValue(Product.class);
-                    stg.child("item_image/"+p.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                    HashMap<String, String> p= (HashMap) snapshot.child("Item").child(cart.getProduct()).getValue();
+                    Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
+                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("discount")), p.get("key"));
+                    stg.child("item_image/"+products.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imgCktProduct);
                         }
                     });
-                    binding.setProduct(p);
+                    binding.setProduct(products);
                 }
 
                 @Override

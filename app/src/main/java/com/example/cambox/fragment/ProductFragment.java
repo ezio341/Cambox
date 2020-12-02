@@ -29,6 +29,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -60,12 +61,20 @@ public class ProductFragment extends Fragment {
         pg.show();
         // Inflate the layout for this fragment
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_product, container, false);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         //firebase single listener
         dbRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 for(DataSnapshot data : snapshot.child("Item").getChildren()){
-                    Product products= data.getValue(Product.class);
+                    HashMap<String, String> p= (HashMap) data.getValue();
+                    Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
+                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("discount")), p.get("key"));
                     list.add(products);
                 }
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
@@ -78,17 +87,12 @@ public class ProductFragment extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
     }
 
 
     //Onclick listener for each item
     public OnClickListenerProduct getListener(){
+
         return new OnClickListenerProduct() {
             @Override
             public void onclick(Product product) {

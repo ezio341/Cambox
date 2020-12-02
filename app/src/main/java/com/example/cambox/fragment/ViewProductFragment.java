@@ -70,6 +70,12 @@ public class ViewProductFragment extends Fragment {
         binding.setProduct(product);
         binding.setCurrencyformat(FormatUtil.getCurrencyFormat());
         binding.imgProduct.setImageResource(R.drawable.ic_baseline_cached_24);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         stg.child("item_image/"+product.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
@@ -89,12 +95,6 @@ public class ViewProductFragment extends Fragment {
 
             }
         });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         binding.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

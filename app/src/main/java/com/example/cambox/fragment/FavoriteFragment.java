@@ -31,6 +31,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -62,13 +63,21 @@ public class FavoriteFragment extends Fragment {
         pg.show();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_favorite, container, false);
         // Inflate the layout for this fragment
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         binding.rvFavorite.setLayoutManager(new GridLayoutManager(getContext(), 2));
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 for(final DataSnapshot i:snapshot.child("Favorite").child(user.getKey()).getChildren()){
-                    Product p = snapshot.child("Item").child(i.getKey()).getValue(Product.class);
-                    productList.add(p);
+                    HashMap<String, String> p= (HashMap) snapshot.child("Item").child(i.getKey()).getValue();
+                    Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
+                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("discount")), p.get("key"));
+                    productList.add(products);
                 }
                 if(productList.size()==0){
                     binding.emptyMsgFavorite.setVisibility(View.VISIBLE);
@@ -107,12 +116,5 @@ public class FavoriteFragment extends Fragment {
 
             }
         });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
     }
 }

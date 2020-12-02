@@ -36,6 +36,7 @@ public class EditProfileFragment extends Fragment {
     private FragmentEditProfileBinding binding;
     private User user;
     private DatabaseReference ref;
+    private ProgressDialog pg;
 
     public EditProfileFragment(User user) {
         this.user = user;
@@ -45,22 +46,35 @@ public class EditProfileFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ref = FirebaseDatabase.getInstance().getReference();
+        pg= new ProgressDialog(getContext());
     }
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_edit_profile, container, false);
+        pg.setMessage("Loading");
+        pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        pg.show();
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User u = snapshot.child("Account").child(user.getKey()).getValue(User.class);
                 Profile p = snapshot.child("Profile").child(user.getKey()).getValue(Profile.class);
                 binding.setProfile(p);
+                binding.setUser(u);
                 if(p.getGender().equals("Male") || p.getGender().isEmpty()){
                     binding.rbMale.setChecked(true);
                 }else{
                     binding.rbFemale.setChecked(true);
                 }
+                pg.dismiss();
             }
 
             @Override
@@ -68,12 +82,6 @@ public class EditProfileFragment extends Fragment {
 
             }
         });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         binding.mDob.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -128,11 +136,13 @@ public class EditProfileFragment extends Fragment {
                 }
                 final Profile p = new Profile(name, address, dob, gender);
 
+
                 final ProgressDialog pg = new ProgressDialog(getContext());
                 pg.setTitle("Updating");
                 pg.setMessage("Please wait ...");
                 pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pg.show();
+                ref.child("Account").child(user.getKey()).child("phone").setValue(binding.mEditPhone.getText().toString());
                 ref.child("Profile").child(user.getKey()).setValue(p).addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

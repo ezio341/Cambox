@@ -20,6 +20,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Comparator;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -75,7 +76,7 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         public void bind(final Product product){
 //            Log.d("download url", stg.child("item_image").getDownloadUrl().toString());
             binding.imageView2.setImageResource(R.drawable.ic_baseline_cached_24);
-            stg.child("item_image/nikon_1532_d3300_dslr_camera.jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+            stg.child("item_image/"+product.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imageView2);

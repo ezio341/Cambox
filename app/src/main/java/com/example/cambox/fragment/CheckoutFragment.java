@@ -30,6 +30,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -59,19 +60,28 @@ public class CheckoutFragment extends Fragment {
         CheckoutAdapter adapter = new CheckoutAdapter(cartList);
         binding.rvCheckout.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false));
         binding.rvCheckout.setAdapter(adapter);
+        return binding.getRoot();
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         ref.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Wallet wallet = snapshot.child("Wallet").child(user.getKey()).getValue(Wallet.class);
-                Courier courier = snapshot.child("Courier").child("0").getValue(Courier.class);
+                HashMap<String, String> wmap = (HashMap) snapshot.child("Wallet").child(user.getKey()).getValue();
+                Wallet wallet = new Wallet(Long.valueOf(wmap.get("balance")));
+                HashMap<String, String> cmap = (HashMap) snapshot.child("Courier").child("0").getValue();
+                Courier courier = new Courier(cmap.get("name"), Integer.valueOf(cmap.get("price")));
                 Profile profile = snapshot.child("Profile").child(user.getKey()).getValue(Profile.class);
                 binding.setProfile(profile);
                 binding.setWallet(wallet);
                 binding.setCourier(courier);
                 int totalprice =0;
                 for(Cart c : cartList){
-                    int price = snapshot.child("Item").child(c.getProduct()).child("price").getValue(Integer.class) * c.getAmount();
-                    totalprice += price;
+                    int price = Integer.valueOf(snapshot.child("Item").child(c.getProduct()).child("price").getValue(String.class));
+                    int pricetotal = price * c.getAmount();
+                    totalprice += pricetotal;
                 }
                 binding.setTotalprice(totalprice);
 
@@ -82,12 +92,6 @@ public class CheckoutFragment extends Fragment {
 
             }
         });
-        return binding.getRoot();
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         binding.btnBackCkt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
