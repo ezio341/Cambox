@@ -24,14 +24,17 @@
 
             <TextView
                 android:id="@+id/txtProductTitle"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="24dp"
-                android:layout_marginTop="24dp"
+                android:background="#FFFFFF"
+                android:elevation="10dp"
                 android:fontFamily="@font/poppins_bold"
+                android:padding="10dp"
+                android:paddingStart="30dp"
                 android:text="Products"
                 android:textColor="#0A1034"
                 android:textSize="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 

@@ -32,54 +32,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="585e182b-ef9d-4d36-8848-6dfa62b1ad59" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/jarAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.5/javaCompile/taskHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/buildOutputCleanup.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/executionHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/executionHistory.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/fileHashes.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/fileHashes.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/jarAnalysis.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/javaCompile.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM_[Default_Changelist]1/taskHistory.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_11_23_2020_10_06_PM__Default_Changelist_1.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/MainActivity.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/MainActivity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/CartAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/CartAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/CheckoutAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/CheckoutAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/ProductAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/adapter/ProductAdapter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/CartFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/CartFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/CheckoutFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/CheckoutFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/EditProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/EditProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/FavoriteFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/FavoriteFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/ProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/ProductFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/ProfileFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/ProfileFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/ViewProductFragment.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/cambox/fragment/ViewProductFragment.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_email.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_email.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_input_name.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_input_name.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_lock.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_lock.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable/ic_phone.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_phone.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_cart.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_checkout.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_checkout.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_edit_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_edit_profile.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_cart.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_cart.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/item_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/item_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favorite.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_favorite.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_product.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_profile.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_product.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/fragment_view_product.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[]" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="device_and_snapshot_combo_box_target[Pixel_2_XL_API_30]" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -509,31 +476,31 @@
       <screen x="0" y="0" width="1280" height="680" />
     </state>
     <state x="321" y="96" key="Downloadable.Font.Dialog.Size/0.0.1280.680@0.0.1280.680" timestamp="1602727872048" />
-    <state x="449" y="104" width="451" height="489" key="FileChooserDialogImpl" timestamp="1606809705575">
+    <state x="449" y="104" width="451" height="489" key="FileChooserDialogImpl" timestamp="1606959491796">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state x="421" y="96" width="451" height="489" key="FileChooserDialogImpl/0.0.1280.680@0.0.1280.680" timestamp="1602683246084" />
-    <state x="449" y="104" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1606809705575" />
-    <state width="1306" height="175" key="GridCell.Tab.0.bottom" timestamp="1606922239589">
+    <state x="449" y="104" key="FileChooserDialogImpl/0.0.1366.738@0.0.1366.738" timestamp="1606959491796" />
+    <state width="1306" height="175" key="GridCell.Tab.0.bottom" timestamp="1606987933923">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.bottom/0.0.1280.680@0.0.1280.680" timestamp="1604914150232" />
-    <state width="1306" height="175" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606922239589" />
-    <state width="1306" height="175" key="GridCell.Tab.0.center" timestamp="1606922239589">
+    <state width="1306" height="175" key="GridCell.Tab.0.bottom/0.0.1366.738@0.0.1366.738" timestamp="1606987933923" />
+    <state width="1306" height="175" key="GridCell.Tab.0.center" timestamp="1606987933923">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.center/0.0.1280.680@0.0.1280.680" timestamp="1604914150232" />
-    <state width="1306" height="175" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1606922239589" />
-    <state width="1306" height="175" key="GridCell.Tab.0.left" timestamp="1606922239588">
+    <state width="1306" height="175" key="GridCell.Tab.0.center/0.0.1366.738@0.0.1366.738" timestamp="1606987933923" />
+    <state width="1306" height="175" key="GridCell.Tab.0.left" timestamp="1606987933922">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.left/0.0.1280.680@0.0.1280.680" timestamp="1604914150231" />
-    <state width="1306" height="175" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1606922239588" />
-    <state width="1306" height="175" key="GridCell.Tab.0.right" timestamp="1606922239589">
+    <state width="1306" height="175" key="GridCell.Tab.0.left/0.0.1366.738@0.0.1366.738" timestamp="1606987933922" />
+    <state width="1306" height="175" key="GridCell.Tab.0.right" timestamp="1606987933923">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
     <state width="1236" height="339" key="GridCell.Tab.0.right/0.0.1280.680@0.0.1280.680" timestamp="1604914150232" />
-    <state width="1306" height="175" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1606922239589" />
+    <state width="1306" height="175" key="GridCell.Tab.0.right/0.0.1366.738@0.0.1366.738" timestamp="1606987933923" />
     <state width="1323" height="182" key="GridCell.Tab.1.bottom" timestamp="1606308680570">
       <screen x="0" y="0" width="1366" height="738" />
     </state>
