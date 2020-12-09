@@ -42,7 +42,7 @@ import java.util.List;
 
 public class CartFragment extends Fragment {
     private FragmentCartBinding binding;
-    private User user;
+    private static User user;
     private List<Cart> cartList;
     private DatabaseReference ref;
     private CartAdapter adapter;

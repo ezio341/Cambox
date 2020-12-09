@@ -34,9 +34,12 @@ import androidx.fragment.app.FragmentTransaction;
 
 public class EditProfileFragment extends Fragment {
     private FragmentEditProfileBinding binding;
-    private User user;
+    private static User user;
     private DatabaseReference ref;
     private ProgressDialog pg;
+
+    public EditProfileFragment() {
+    }
 
     public EditProfileFragment(User user) {
         this.user = user;

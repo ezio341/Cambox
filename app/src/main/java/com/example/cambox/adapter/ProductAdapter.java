@@ -2,6 +2,7 @@ package com.example.cambox.adapter;
 
 import android.net.Uri;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
@@ -75,11 +76,11 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
         }
         public void bind(final Product product){
 //            Log.d("download url", stg.child("item_image").getDownloadUrl().toString());
-            binding.imageView2.setImageResource(R.drawable.ic_baseline_cached_24);
             stg.child("item_image/"+product.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                 @Override
                 public void onSuccess(Uri uri) {
                     Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imageView2);
+                    binding.progressBar3.setVisibility(View.GONE);
                 }
             });
             ref.child("Favorite").child(user.getKey()).addListenerForSingleValueEvent(new ValueEventListener() {

@@ -36,7 +36,7 @@ import java.util.List;
 
 
 public class FavoriteFragment extends Fragment {
-    private User user;
+    private static User user;
     private FragmentFavoriteBinding binding;
     private List<Product> productList;
     private DatabaseReference ref;
@@ -76,7 +76,7 @@ public class FavoriteFragment extends Fragment {
                 for(final DataSnapshot i:snapshot.child("Favorite").child(user.getKey()).getChildren()){
                     HashMap<String, String> p= (HashMap) snapshot.child("Item").child(i.getKey()).getValue();
                     Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
-                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("discount")), p.get("key"));
+                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("disc")), p.get("key"));
                     productList.add(products);
                 }
                 if(productList.size()==0){

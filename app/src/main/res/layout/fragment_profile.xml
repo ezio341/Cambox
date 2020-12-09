@@ -101,12 +101,14 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/btnAccInfo"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginTop="220dp"
             android:background="#FFFFFF"
+            android:elevation="5dp"
             android:orientation="vertical">
 
             <TextView
@@ -122,33 +124,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginTop="300dp"
-            android:background="#FFFFFF"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="252dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="15dp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="Security and Settings"
-                android:textColor="#0A1034"
-                android:textSize="18dp"></TextView>
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/btnDeleteAccount"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginLeft="24dp"
             android:layout_marginRight="24dp"
-            android:layout_marginTop="380dp"
+            android:layout_marginTop="300dp"
             android:background="#FFFFFF"
             android:elevation="5dp"
             android:orientation="vertical">
@@ -170,7 +151,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="155dp"
-            android:layout_marginTop="580dp"
+            android:layout_marginTop="420dp"
             android:background="#FF6363"
             android:elevation="5dp">
 

@@ -44,13 +44,16 @@ public class ViewProductFragment extends Fragment {
     private Product product;
     private Fragment backDirection;
     private DatabaseReference ref;
-    private User user;
+    private static User user;
     private ProgressDialog pg;
     private StorageReference stg;
 
     public ViewProductFragment(Product product, Fragment fragmentDirection) {
         this.product = product;
         this.backDirection = fragmentDirection;
+    }
+
+    public ViewProductFragment() {
     }
 
     @Override
@@ -69,7 +72,6 @@ public class ViewProductFragment extends Fragment {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_view_product, container, false);
         binding.setProduct(product);
         binding.setCurrencyformat(FormatUtil.getCurrencyFormat());
-        binding.imgProduct.setImageResource(R.drawable.ic_baseline_cached_24);
         return binding.getRoot();
     }
 
@@ -80,6 +82,7 @@ public class ViewProductFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imgProduct);
+                binding.progressBar6.setVisibility(View.GONE);
             }
         });
         ref.child("Favorite").child(user.getKey()).addValueEventListener(new ValueEventListener() {

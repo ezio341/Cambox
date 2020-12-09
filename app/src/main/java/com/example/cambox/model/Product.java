@@ -7,20 +7,20 @@ public class Product {
     int price;
     String product_date;
     int stock;
-    double discount;
+    double disc;
     String key;
 
     public Product() {
     }
 
-    public Product(String name, String desc, String img, int price, String product_date, int stock, double discount, String key) {
+    public Product(String name, String desc, String img, int price, String product_date, int stock, double disc, String key) {
         this.name = name;
         this.desc = desc;
         this.img = img;
         this.price = price;
         this.product_date = product_date;
         this.stock = stock;
-        this.discount = discount;
+        this.disc = disc;
         this.key = key;
     }
 
@@ -72,12 +72,12 @@ public class Product {
         this.stock = stock;
     }
 
-    public double getDiscount() {
-        return discount;
+    public double getDisc() {
+        return disc;
     }
 
-    public void setDiscount(double discount) {
-        this.discount = discount;
+    public void setDisc(double disc) {
+        this.disc = disc;
     }
 
     public String getKey() {

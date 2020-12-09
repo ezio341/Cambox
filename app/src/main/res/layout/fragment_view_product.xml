@@ -143,5 +143,34 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/imgProduct" />
 
+        <ProgressBar
+            android:id="@+id/progressBar6"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="79dp"
+            android:layout_height="78dp"
+            app:layout_constraintBottom_toBottomOf="@+id/imgProduct"
+            app:layout_constraintEnd_toEndOf="@+id/imgProduct"
+            app:layout_constraintStart_toStartOf="@+id/imgProduct"
+            app:layout_constraintTop_toTopOf="@+id/imgProduct" />
+
+        <TextView
+            android:id="@+id/textView38"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:layout_marginTop="8dp"
+            android:text="@{String.valueOf(product.stock)}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btnFavoriteProduct" />
+
+        <TextView
+            android:id="@+id/textView39"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Stock : "
+            app:layout_constraintEnd_toStartOf="@+id/textView38"
+            app:layout_constraintTop_toTopOf="@+id/textView38" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -65,17 +65,17 @@ public class CheckoutAdapter extends RecyclerView.Adapter <CheckoutAdapter.Check
             this.binding = binding;
         }
         public void bind(final Cart cart){
-            binding.imgCktProduct.setImageResource(R.drawable.ic_baseline_cached_24);
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     HashMap<String, String> p= (HashMap) snapshot.child("Item").child(cart.getProduct()).getValue();
                     Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
-                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("discount")), p.get("key"));
+                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("disc")), p.get("key"));
                     stg.child("item_image/"+products.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {
                             Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imgCktProduct);
+                            binding.progressBar5.setVisibility(View.GONE);
                         }
                     });
                     binding.setProduct(products);

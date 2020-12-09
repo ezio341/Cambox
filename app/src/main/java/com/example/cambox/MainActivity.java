@@ -2,6 +2,7 @@ package com.example.cambox;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -38,9 +39,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         user = (User)getIntent().getParcelableExtra("user");
         Log.d("user key", user.getKey());
-        getFragment(new ProductFragment(user));
         getSupportActionBar().hide();
 
+        getFragment(new ProductFragment(user));
         bottom_view = findViewById(R.id.bottom_view);
         bottom_view.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener(){
             @Override
@@ -54,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                     getFragment(new FavoriteFragment(user));
                 }else if(item.getItemId() == R.id.order) {
                     getSupportActionBar().setTitle("Orders");
-                    getFragment(new OrderFragment());
+                    getFragment(new OrderFragment(user));
                 }else if(item.getItemId() == R.id.cart) {
                     getSupportActionBar().setTitle("Cart");
                     getFragment(new CartFragment(user));

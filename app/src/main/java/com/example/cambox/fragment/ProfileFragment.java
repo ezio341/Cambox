@@ -33,10 +33,18 @@ import com.google.firebase.database.ValueEventListener;
 public class ProfileFragment extends Fragment {
     private DatabaseReference ref;
     private FragmentProfileBinding binding;
-    private User user;
+    private static User user;
 
     public ProfileFragment(User user) {
         this.user = user;
+    }
+
+    public ProfileFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         ref = FirebaseDatabase.getInstance().getReference();
     }
 
@@ -68,6 +76,12 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 FragmentUtil.getFragment(new EditProfileFragment(user), getActivity());
+            }
+        });
+        binding.btnAccInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentUtil.getFragment(new AccInfoFragment(user), getActivity());
             }
         });
         binding.btnDeleteAccount.setOnClickListener(new View.OnClickListener() {

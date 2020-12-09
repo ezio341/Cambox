@@ -35,7 +35,7 @@ import java.util.List;
 
 public class ProductFragment extends Fragment {
     private FragmentProductBinding binding;
-    private User user;
+    private static User user;
 
     private DatabaseReference dbRef;
 
@@ -44,6 +44,9 @@ public class ProductFragment extends Fragment {
 
     public ProductFragment(User user) {
         this.user = user;
+    }
+
+    public ProductFragment() {
     }
 
     @Override
@@ -72,10 +75,10 @@ public class ProductFragment extends Fragment {
             @Override
             public void onDataChange(@NonNull final DataSnapshot snapshot) {
                 for(DataSnapshot data : snapshot.child("Item").getChildren()){
-                    HashMap<String, String> p= (HashMap) data.getValue();
-                    Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
-                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("discount")), p.get("key"));
-                    list.add(products);
+                    final HashMap<String, String> p= (HashMap) data.getValue();
+                        Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
+                                Integer.valueOf(p.get("stock")), Double.valueOf(p.get("disc")), p.get("key"));
+                        list.add(products);
                 }
                 binding.recyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
                 final ProductAdapter adapter = new ProductAdapter(list, user);
