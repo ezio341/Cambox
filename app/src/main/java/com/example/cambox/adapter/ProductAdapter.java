@@ -80,6 +80,9 @@ public class ProductAdapter extends RecyclerView.Adapter<ProductAdapter.ProductV
                 @Override
                 public void onSuccess(Uri uri) {
                     Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imageView2);
+                    if(product.getStock() == 0){
+                        binding.txtSoldOut.setVisibility(View.VISIBLE);
+                    }
                     binding.progressBar3.setVisibility(View.GONE);
                 }
             });

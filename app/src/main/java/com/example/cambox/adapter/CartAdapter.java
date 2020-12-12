@@ -74,9 +74,10 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    HashMap<String, String> p= (HashMap) snapshot.child("Item").child(cart.getProduct()).getValue();
-                    Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
-                            Integer.valueOf(p.get("stock")), Double.valueOf(p.get("disc")), p.get("key"));
+                    HashMap p= (HashMap) snapshot.child("Item").child(cart.getProduct()).getValue();
+                    Product products = new Product(p.get("name").toString(), p.get("desc").toString(), p.get("img").toString()
+                            , Integer.parseInt((String) p.get("price")), p.get("product_date").toString(),
+                            Integer.parseInt((String) p.get("stock")), Double.parseDouble((String) p.get("disc")), p.get("key").toString());
                     stg.child("item_image/"+products.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override
                         public void onSuccess(Uri uri) {

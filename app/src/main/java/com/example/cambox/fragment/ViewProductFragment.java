@@ -82,6 +82,9 @@ public class ViewProductFragment extends Fragment {
             @Override
             public void onSuccess(Uri uri) {
                 Glide.with(binding.getRoot().getContext()).load(uri).into(binding.imgProduct);
+                if(product.getStock()==0){
+                    binding.txtViewProductSold.setVisibility(View.VISIBLE);
+                }
                 binding.progressBar6.setVisibility(View.GONE);
             }
         });
@@ -144,26 +147,12 @@ public class ViewProductFragment extends Fragment {
             ref.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    boolean isCartAvailable = false;
-                    List<Cart> cartList = new ArrayList<>();
-                    for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
-                        Cart dbCart = data.getValue(Cart.class);
-
-                        cartList.add(dbCart);
+                    if(product.getStock()!=0){
+                        addToCart(snapshot);
+                    }else{
+                        Toast.makeText(getContext(), "Stock is Empty!\nPlease Wait Until The Products are Available", Toast.LENGTH_SHORT).show();
+                        pg.dismiss();
                     }
-                    for(Cart c : cartList){
-                        if(c.getProduct().equals(product.getKey())){
-                            isCartAvailable = true;
-                            Toast.makeText(getContext(), "Product is already available in Cart", Toast.LENGTH_SHORT).show();
-                        }
-                    }
-
-                    if(!isCartAvailable){
-                        cartList.add(new Cart(product.getKey(), 1, ""+cartList.size()));
-                        ref.child("Cart").child(user.getKey()).setValue(cartList);
-                        Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
-                    }
-                    pg.dismiss();
                 }
 
                 @Override
@@ -175,5 +164,28 @@ public class ViewProductFragment extends Fragment {
 
             }
         });
+    }
+
+    public void addToCart(DataSnapshot snapshot){
+        boolean isCartAvailable = false;
+        List<Cart> cartList = new ArrayList<>();
+        for(DataSnapshot data : snapshot.child("Cart").child(user.getKey()).getChildren()){
+            Cart dbCart = data.getValue(Cart.class);
+
+            cartList.add(dbCart);
+        }
+        for(Cart c : cartList){
+            if(c.getProduct().equals(product.getKey())){
+                isCartAvailable = true;
+                Toast.makeText(getContext(), "Product is already available in Cart", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(!isCartAvailable){
+            cartList.add(new Cart(product.getKey(), 1, ""+cartList.size()));
+            ref.child("Cart").child(user.getKey()).setValue(cartList);
+            Toast.makeText(getContext(), "Added to Cart", Toast.LENGTH_SHORT).show();
+        }
+        pg.dismiss();
     }
 }

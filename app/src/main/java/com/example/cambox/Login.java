@@ -23,6 +23,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class Login extends AppCompatActivity {
     private ActivityLoginBinding binding;
     private DatabaseReference ref;
@@ -40,6 +42,7 @@ public class Login extends AppCompatActivity {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                checkNewProduct();
                 final ProgressDialog pg = new ProgressDialog(Login.this);
                 pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
                 pg.setTitle("Logging in");
@@ -108,6 +111,24 @@ public class Login extends AppCompatActivity {
                 txt.setTextColor(Color.BLUE);
                 startActivity(new Intent(getApplicationContext(), Register.class));
                 finish();
+            }
+        });
+    }
+    public void checkNewProduct(){
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data:snapshot.child("Item").getChildren()){
+                    final HashMap<String, String> p= (HashMap) data.getValue();
+                    if(p.get("key")==null) {
+                        ref.child("Item").child(data.getKey()).child("key").setValue(data.getKey());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

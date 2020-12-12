@@ -21,7 +21,6 @@ import java.util.HashMap;
 
 public class SplashScreen extends AppCompatActivity {
     private LinearLayout btnStart;
-    DatabaseReference ref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,23 +36,6 @@ public class SplashScreen extends AppCompatActivity {
                 Intent intent = new Intent(SplashScreen.this, Register.class);
                 startActivity(intent);
                 finish();
-            }
-        });
-        ref = FirebaseDatabase.getInstance().getReference();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot data:snapshot.child("Item").getChildren()){
-                    final HashMap<String, String> p= (HashMap) data.getValue();
-                    if(p.get("key")==null) {
-                        ref.child("Item").child(data.getKey()).child("key").setValue(data.getKey());
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
     }

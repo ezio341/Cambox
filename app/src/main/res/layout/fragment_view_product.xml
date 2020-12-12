@@ -68,7 +68,7 @@
             android:id="@+id/btnAddToCart"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="80dp"
+            android:layout_marginBottom="40dp"
             android:layout_marginEnd="24dp"
             android:layout_marginStart="24dp"
             android:background="@drawable/custom_input"
@@ -171,6 +171,22 @@
             android:text="Stock : "
             app:layout_constraintEnd_toStartOf="@+id/textView38"
             app:layout_constraintTop_toTopOf="@+id/textView38" />
+
+        <TextView
+            android:id="@+id/txtViewProductSold"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="#7A686868"
+            android:gravity="center"
+            android:text="SOLD OUT"
+            android:textColor="#FFFFFF"
+            android:textSize="30sp"
+            android:textStyle="bold"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/imgProduct"
+            app:layout_constraintEnd_toEndOf="@+id/imgProduct"
+            app:layout_constraintStart_toStartOf="@+id/imgProduct"
+            app:layout_constraintTop_toTopOf="@+id/imgProduct" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

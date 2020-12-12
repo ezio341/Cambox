@@ -70,6 +70,7 @@ public class CartFragment extends Fragment {
         pg.show();
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_cart, container, false);
         // Inflate the layout for this fragment
+        binding.setLifecycleOwner(this);
         return binding.getRoot();
     }
 
@@ -143,8 +144,8 @@ public class CartFragment extends Fragment {
                     ref.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            if(!snapshot.child("Profile").child(user.getKey()).child("address").getValue(String.class)
-                                    .equals("address not set")){
+                            String address = snapshot.child("Profile").child(user.getKey()).child("address").getValue(String.class);
+                            if(!address.equals("address not set") && !address.isEmpty()){
                                 FragmentUtil.getFragment(new CheckoutFragment(user, cartList), getActivity());
                                 Log.d("size list", cartList.size()+"");
                             }else{

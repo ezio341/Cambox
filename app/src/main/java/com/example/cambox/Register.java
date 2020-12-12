@@ -27,6 +27,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.HashMap;
+
 public class Register extends AppCompatActivity {
     private ActivityRegisterBinding binding;
     private DatabaseReference ref;
@@ -83,8 +85,9 @@ public class Register extends AppCompatActivity {
                                 pg.dismiss();
                                 return;
                             }else{
+                                checkNewProduct();
                                 ref.child("Wallet").child(SecurityUtil.digest(binding.mRegEmail.getText().toString()))
-                                        .setValue(new Wallet(1000000000));
+                                        .child("balance").setValue("100000000");
                                 ref.child("Profile").child(SecurityUtil.digest(binding.mRegEmail.getText().toString()))
                                         .setValue(new Profile(binding.mUsername.getText().toString()));
                                 ref.child("Account").child(SecurityUtil.digest(binding.mRegEmail.getText().toString()))
@@ -120,5 +123,23 @@ public class Register extends AppCompatActivity {
            }
        });
 
+    }
+    public void checkNewProduct(){
+        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot data:snapshot.child("Item").getChildren()){
+                    final HashMap<String, String> p= (HashMap) data.getValue();
+                    if(p.get("key")==null) {
+                        ref.child("Item").child(data.getKey()).child("key").setValue(data.getKey());
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

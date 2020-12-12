@@ -28,9 +28,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 public class CheckoutAdapter extends RecyclerView.Adapter <CheckoutAdapter.CheckoutViewHolder> {
-    List<Cart> cartlist;
-    DatabaseReference ref;
-    StorageReference stg;
+    private List<Cart> cartlist;
+    private DatabaseReference ref;
+    private StorageReference stg;
 
     public CheckoutAdapter(List<Cart> cartlist) {
         this.cartlist = cartlist;
@@ -69,7 +69,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter <CheckoutAdapter.Check
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     HashMap<String, String> p= (HashMap) snapshot.child("Item").child(cart.getProduct()).getValue();
-                    Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
+                    final Product products = new Product(p.get("name"), p.get("desc"), p.get("img"), Integer.valueOf(p.get("price")), p.get("product_date"),
                             Integer.valueOf(p.get("stock")), Double.valueOf(p.get("disc")), p.get("key"));
                     stg.child("item_image/"+products.getImg()).getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                         @Override

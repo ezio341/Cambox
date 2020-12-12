@@ -119,7 +119,32 @@ public class CheckoutFragment extends Fragment {
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        pushOrder();
+                        pg.setMessage("Please Wait ...");
+                        pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                        pg.show();
+                        ref.addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                int totalprice = 0;
+                                String balance = snapshot.child("Wallet").child(user.getKey()).child("balance").getValue(String.class);
+                                for(Cart c : cartList){
+                                    int price = Integer.valueOf(snapshot.child("Item").child(c.getProduct()).child("price").getValue(String.class));
+                                    int pricetotal = price * c.getAmount();
+                                    totalprice += pricetotal;
+                                }
+                                if(totalprice <= Long.valueOf(balance)) {
+                                    pushOrder(snapshot);
+                                }else{
+                                    Toast.makeText(getContext(), "Your balance isn't enough!\nPlease Top Up Your Wallet", Toast.LENGTH_SHORT).show();
+                                    pg.dismiss();
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
                     }
                 })
                 .setNegativeButton("No", null).show();
@@ -127,53 +152,40 @@ public class CheckoutFragment extends Fragment {
         });
     }
 
-    public void pushOrder(){
-        pg.setMessage("Please Wait ...");
-        pg.setProgressStyle(ProgressDialog.STYLE_SPINNER);
-        pg.show();
-        ref.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull final DataSnapshot snapshot) {
-                int totalprice = 0;
-                //count price total, decrease item stock
-                for(Cart c : cartList){
-                    int price = Integer.valueOf(snapshot.child("Item").child(c.getProduct()).child("price").getValue(String.class));
-                    int pricetotal = price * c.getAmount();
-                    totalprice += pricetotal;
-                    String strstock = snapshot.child("Item").child(c.getProduct()).child("stock").getValue(String.class);
-                    int stock = Integer.valueOf(strstock);
-                    ref.child("Item").child(c.getProduct()).child("stock").setValue(String.valueOf(stock-c.getAmount()));
-                }
-                String orderkey = ref.child("Order").child(user.getKey()).push().getKey();
-                String orderdate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
-                long orderlen = snapshot.child("Order").child(user.getKey()).getChildrenCount();
-                HashMap<String, String> cmap = (HashMap) snapshot.child("Courier").child("0").getValue();
-                final Courier courier = new Courier(cmap.get("name"), Integer.valueOf(cmap.get("price")));
-                Order order= new Order(cartList, courier, "Processed", orderkey, orderdate, ((int) orderlen)+1, totalprice);
-                final int finalTotalprice = totalprice;
+    public void pushOrder(final DataSnapshot snapshot){
+        int totalprice = 0;
+        //count price total, decrease item stock
+        for(Cart c : cartList){
+            int price = Integer.valueOf(snapshot.child("Item").child(c.getProduct()).child("price").getValue(String.class));
+            int pricetotal = price * c.getAmount();
+            totalprice += pricetotal;
+            String strstock = snapshot.child("Item").child(c.getProduct()).child("stock").getValue(String.class);
+            int stock = Integer.valueOf(strstock);
+            ref.child("Item").child(c.getProduct()).child("stock").setValue(String.valueOf(stock-c.getAmount()));
+        }
+        String orderkey = ref.child("Order").child(user.getKey()).push().getKey();
+        String orderdate = new SimpleDateFormat("dd-MM-yyyy").format(new Date());
+        long orderlen = snapshot.child("Order").child(user.getKey()).getChildrenCount();
+        HashMap<String, String> cmap = (HashMap) snapshot.child("Courier").child("0").getValue();
+        final Courier courier = new Courier(cmap.get("name"), Integer.valueOf(cmap.get("price")));
+        Order order= new Order(cartList, courier, "Processed", orderkey, orderdate, ((int) orderlen)+1, totalprice);
+        final int finalTotalprice = totalprice;
 
-                //push order to db, update wallet balance, remove cart items
-                ref.child("Order").child(user.getKey()).child(orderkey).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+        //push order to db, update wallet balance, remove cart items
+        ref.child("Order").child(user.getKey()).child(orderkey).setValue(order).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                String strbalance = snapshot.child("Wallet").child(user.getKey()).child("balance").getValue(String.class);
+                long balance = Long.parseLong(strbalance);
+                ref.child("Wallet").child(user.getKey()).child("balance").setValue(String.valueOf(balance - (finalTotalprice + courier.getPrice())));
+                ref.child("Cart").child(user.getKey()).removeValue(new DatabaseReference.CompletionListener() {
                     @Override
-                    public void onSuccess(Void aVoid) {
-                        String strbalance = snapshot.child("Wallet").child(user.getKey()).child("balance").getValue(String.class);
-                        long balance = Long.valueOf(strbalance);
-                        ref.child("Wallet").child(user.getKey()).child("balance").setValue(String.valueOf(balance - (finalTotalprice + courier.getPrice())));
-                        ref.child("Cart").child(user.getKey()).removeValue(new DatabaseReference.CompletionListener() {
-                            @Override
-                            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                                Toast.makeText(getContext(), "Your Order are being Processed", Toast.LENGTH_SHORT).show();
-                                FragmentUtil.getFragment(new CartFragment(user), getActivity());
-                            }
-                        });
-                        pg.dismiss();
+                    public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
+                        Toast.makeText(getContext(), "Your Order are being Processed", Toast.LENGTH_SHORT).show();
+                        FragmentUtil.getFragment(new CartFragment(user), getActivity());
                     }
                 });
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
+                pg.dismiss();
             }
         });
     }
